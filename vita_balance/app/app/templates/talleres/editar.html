@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Taller - VitaBalance Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard Admin</a>
+                <a href="{{ url_for('planes.index') }}" class="nav-link">Planes</a>
+                <a href="{{ url_for('talleres.index') }}" class="nav-link">Ver Talleres</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Editar Taller</h2>
+                <p>Modifica la información del taller "{{ taller.nombre }}"</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre del Taller</label>
+                        <input type="text" class="form-input" name="nombre" id="nombre" value="{{ taller.nombre }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dias_semana" class="form-label">Días de la Semana</label>
+                        <input type="text" class="form-input" name="dias_semana" id="dias_semana" value="{{ taller.dias_semana }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cupos" class="form-label">Número de Cupos</label>
+                        <input type="number" class="form-input" name="cupos" id="cupos" value="{{ taller.cupos }}" required min="1" max="50">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="objetivo" class="form-label">Objetivo Principal</label>
+                        <select name="objetivo" id="objetivo" class="form-select" required>
+                            <option value="perder_peso" {% if taller.objetivo == 'perder_peso' %}selected{% endif %}>Perder Peso</option>
+                            <option value="ganar_masa" {% if taller.objetivo == 'ganar_masa' %}selected{% endif %}>Ganar Músculo</option>
+                            <option value="mejorar_salud" {% if taller.objetivo == 'mejorar_salud' %}selected{% endif %}>Mejorar Salud General</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nivel_actividad" class="form-label">Nivel de Actividad</label>
+                        <select name="nivel_actividad" id="nivel_actividad" class="form-select" required>
+                            <option value="bajo" {% if taller.nivel_actividad == 'bajo' %}selected{% endif %}>Bajo (Sedentario)</option>
+                            <option value="moderado" {% if taller.nivel_actividad == 'moderado' %}selected{% endif %}>Moderado (Ejercicio ocasional)</option>
+                            <option value="alto" {% if taller.nivel_actividad == 'alto' %}selected{% endif %}>Alto (Ejercicio frecuente)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="descripcion" class="form-label">Descripción del Taller</label>
+                        <textarea name="descripcion" id="descripcion" class="form-textarea" rows="4">{{ taller.descripcion }}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="confirmarEliminar()">
+                        🗑️ Eliminar Taller
+                    </button>
+                    <div style="flex: 1;"></div>
+                    <a href="{{ url_for('talleres.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Actualizar Taller</button>
+                </div>
+            </form>
+            
+            <form id="formEliminar" action="{{ url_for('talleres.eliminar', id=taller.id) }}" method="post" style="display: none;">
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function confirmarEliminar() {
+            if (confirm('⚠️ ¿Estás seguro de que quieres eliminar este taller?\n\nEsta acción no se puede deshacer y se perderán todos los datos asociados.')) {
+                document.getElementById('formEliminar').submit();
+            }
+        }
+    </script>
+
+</body>
+</html>

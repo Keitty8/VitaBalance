@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Taller - VitaBalance Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard Admin</a>
+                <a href="{{ url_for('planes.index') }}" class="nav-link">Planes</a>
+                <a href="{{ url_for('talleres.index') }}" class="nav-link">Ver Talleres</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Crear Nuevo Taller</h2>
+                <p>Completa la información para crear un taller atractivo para tus usuarios</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre del Taller</label>
+                        <input type="text" class="form-input" name="nombre" id="nombre" required placeholder="Ej: Yoga para Principiantes">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dias_semana" class="form-label">Días de la Semana</label>
+                        <input type="text" class="form-input" name="dias_semana" id="dias_semana" required placeholder="Ej: Lunes y Miércoles, Martes y Jueves">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cupos" class="form-label">Número de Cupos</label>
+                        <input type="number" class="form-input" name="cupos" id="cupos" required min="1" max="50" placeholder="20">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="objetivo" class="form-label">Objetivo Principal</label>
+                        <select name="objetivo" id="objetivo" class="form-select" required>
+                            <option value="">Selecciona un objetivo</option>
+                            <option value="perder_peso">Perder Peso</option>
+                            <option value="ganar_masa">Ganar Músculo</option>
+                            <option value="mejorar_salud">Mejorar Salud General</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nivel_actividad" class="form-label">Nivel de Actividad</label>
+                        <select name="nivel_actividad" id="nivel_actividad" class="form-select" required>
+                            <option value="">Selecciona un nivel</option>
+                            <option value="bajo">Bajo (Sedentario)</option>
+                            <option value="moderado">Moderado (Ejercicio ocasional)</option>
+                            <option value="alto">Alto (Ejercicio frecuente)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="descripcion" class="form-label">Descripción del Taller</label>
+                        <textarea name="descripcion" id="descripcion" class="form-textarea" rows="4" placeholder="Describe qué incluye el taller, qué aprenderán los participantes y cualquier requisito especial..."></textarea>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>💡 Consejos para un Taller Exitoso</h4>
+                    <p>• Sé específico en la descripción para atraer al público objetivo<br>
+                    • Considera la capacidad del espacio al definir los cupos<br>
+                    • Incluye el nivel de dificultad en el nombre si es relevante</p>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{{ url_for('talleres.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Crear Taller</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

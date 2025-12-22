@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba del Chatbot VitaBalance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .description {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .chat-trigger {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 10px;
+        }
+        
+        .chat-trigger:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ul {
+            color: #424242;
+            line-height: 1.8;
+        }
+        
+        .status {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="status">✅ Chatbot Activo</div>
+        <div class="logo">🤖 VitaBalance Chatbot</div>
+        <div class="description">
+            ¡Prueba nuestro nuevo asistente virtual inteligente! 
+            Diseñado específicamente para ayudarte con toda la información sobre VitaBalance.
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>🎯 Respuestas Inteligentes</h3>
+                <p>Información actualizada sobre planes gratuitos, talleres y registro</p>
+            </div>
+            <div class="feature">
+                <h3>🔘 Botones Interactivos</h3>
+                <p>Respuestas sugeridas para facilitar la conversación</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Totalmente Responsive</h3>
+                <p>Funciona perfectamente en móviles y escritorio</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Respuestas Rápidas</h3>
+                <p>IA optimizada para responder al instante</p>
+            </div>
+        </div>
+        
+        <button class="chat-trigger" onclick="window.openVitaBalanceChat ? window.openVitaBalanceChat() : alert('Cargando chatbot...')">
+            💬 Abrir Chat
+        </button>
+        
+        <button class="chat-trigger" onclick="testChatbot()">
+            🧪 Prueba Automática
+        </button>
+        
+        <div class="instructions">
+            <h3>🚀 Instrucciones de Prueba:</h3>
+            <ul>
+                <li><strong>Haz clic en el botón flotante</strong> en la esquina inferior derecha</li>
+                <li><strong>Prueba preguntas como:</strong>
+                    <ul>
+                        <li>"¿Qué planes tienen?"</li>
+                        <li>"¿Es realmente gratis?"</li>
+                        <li>"¿Cómo me registro?"</li>
+                        <li>"¿Tienen app móvil?"</li>
+                        <li>"Información sobre talleres"</li>
+                    </ul>
+                </li>
+                <li><strong>Usa los botones de respuesta rápida</strong> que aparecen después de cada mensaje</li>
+                <li><strong>Verifica la información actualizada</strong> (sin app móvil, todo gratuito)</li>
+                <li><strong>Prueba en móvil</strong> para verificar la responsividad</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Incluir el chatbot -->
+    <link rel="stylesheet" href="/static/css/chatbot.css">
+    <script src="/static/js/chatbot.js"></script>
+    
+    <script>
+        function testChatbot() {
+            if (window.vitaBalanceChatbot) {
+                window.vitaBalanceChatbot.openChat();
+                
+                setTimeout(() => {
+                    window.vitaBalanceChatbot.addBotMessage("🧪 Modo de prueba activado. Puedes hacer cualquier pregunta sobre VitaBalance.");
+                }, 1000);
+            } else {
+                alert('El chatbot se está cargando, por favor espera un momento...');
+            }
+        }
+        
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                if (window.vitaBalanceChatbot) {
+                    console.log('✅ Chatbot cargado correctamente');
+                } else {
+                    console.warn('⚠️ Chatbot no se ha cargado aún');
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

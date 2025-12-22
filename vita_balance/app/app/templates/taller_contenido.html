@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ taller.nombre }} - Contenido - VitaBalance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <style>
+        .taller-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+        }
+        
+        .taller-progress {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: #00ff88;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .contenido-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .rutina-dia {
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .rutina-dia:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+        
+        .rutina-dia.completada {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+        
+        .dia-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .dia-numero {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .dia-numero.completado {
+            background: #00ff88;
+        }
+        
+        .contenido-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contenido-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .contenido-item.completado {
+            border-color: #00ff88;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 255, 136, 0.05) 100%);
+        }
+        
+        .contenido-item.completado::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #00ff88;
+        }
+        
+        .contenido-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contenido-tipo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        
+        .tipo-video { background: linear-gradient(135deg, #ff6b6b, #ee5a52); color: white; }
+        .tipo-rutina { background: linear-gradient(135deg, #4ecdc4, #44a08d); color: white; }
+        .tipo-documento { background: linear-gradient(135deg, #45b7d1, #2196f3); color: white; }
+        .tipo-sesion_vivo { background: linear-gradient(135deg, #f39c12, #e67e22); color: white; }
+        
+        .contenido-info {
+            flex: 1;
+        }
+        
+        .contenido-titulo {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .contenido-descripcion {
+            color: #6c757d;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contenido-duracion {
+            color: #8e9ba7;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .contenido-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .btn-completar {
+            background: linear-gradient(135deg, #00ff88, #00e07a);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-completar:hover {
+            background: linear-gradient(135deg, #00e07a, #00c969);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+        }
+        
+        .btn-completar:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-acceder {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-acceder:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .completado-badge {
+            background: linear-gradient(135deg, #00ff88, #00e07a);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .siguiente-contenido {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .alert-success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00a854;
+        }
+        
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .days-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contenido-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.75rem;
+            }
+            
+            .contenido-tipo {
+                align-self: center;
+            }
+            
+            .contenido-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn-acceder, .btn-completar, .completado-badge {
+                width: 80%;
+                justify-content: center;
+            }
+            
+            .taller-header {
+                padding: 1.5rem;
+            }
+            
+            .contenido-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="user-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance</h1>
+            <nav class="user-nav">
+                <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('dashboard.mis_talleres') }}" class="nav-link">Mis Talleres</a>
+                <div class="user-info">
+                    <span class="user-avatar">{{ user.username[0].upper() }}</span>
+                    <span class="user-name">{{ user.username }}</span>
+                </div>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout-btn">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="user-main">
+        <div class="taller-header">
+            <h1>{{ taller.nombre }}</h1>
+            <p>{{ taller.descripcion }}</p>
+            <div class="taller-progress">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span>Progreso del taller</span>
+                    <span id="progreso-porcentaje">{{ progreso }}%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: {{ progreso }}%;"></div>
+                </div>
+            </div>
+        </div>
+
+        {% if siguiente_contenido %}
+        <div class="siguiente-contenido">
+            <h3>🎯 Siguiente: {{ siguiente_contenido.titulo }}</h3>
+            <p>{{ siguiente_contenido.descripcion }}</p>
+            <a href="{{ siguiente_contenido.url_contenido }}" target="_blank" class="btn btn-primary">
+                Continuar
+            </a>
+        </div>
+        {% endif %}
+
+        <div id="alert-container"></div>
+
+        {% if rutinas_diarias %}
+        <div class="contenido-section">
+            <h2>📅 Rutinas Diarias</h2>
+            <div class="days-grid">
+                {% for dia in range(1, 8) %}
+                    {% if dia in rutinas_diarias %}
+                        <div class="rutina-dia {% if rutinas_diarias[dia][0].esta_completado_por(user) %}completada{% endif %}">
+                            <div class="dia-header">
+                                <h3>Día {{ dia }}</h3>
+                                <div class="dia-numero {% if rutinas_diarias[dia][0].esta_completado_por(user) %}completado{% endif %}">
+                                    {% if rutinas_diarias[dia][0].esta_completado_por(user) %}
+                                        ✓
+                                    {% else %}
+                                        {{ dia }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% for contenido in rutinas_diarias[dia] %}
+                                <div class="contenido-item {% if contenido.esta_completado_por(user) %}completado{% endif %}" data-contenido-id="{{ contenido.id }}">
+                                    <div class="contenido-header">
+                                        <div class="contenido-tipo tipo-{{ contenido.tipo_contenido }}">
+                                            {% if contenido.tipo_contenido == 'rutina' %}🏃‍♂️
+                                            {% elif contenido.tipo_contenido == 'video' %}🎥
+                                            {% elif contenido.tipo_contenido == 'documento' %}📄
+                                            {% elif contenido.tipo_contenido == 'sesion_vivo' %}🔴
+                                            {% endif %}
+                                        </div>
+                                        <div class="contenido-info">
+                                            <div class="contenido-titulo">{{ contenido.titulo }}</div>
+                                            <div class="contenido-descripcion">{{ contenido.descripcion }}</div>
+                                            {% if contenido.duracion_minutos %}
+                                                <div class="contenido-duracion">
+                                                    <span>⏱️</span>
+                                                    <span>{{ contenido.duracion_minutos }} minutos</span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="contenido-actions">
+                                        {% if contenido.esta_completado_por(user) %}
+                                            <div class="completado-badge">
+                                                <span>✅</span>
+                                                <span>Completado</span>
+                                            </div>
+                                        {% else %}
+                                            <a href="{{ contenido.url_contenido }}" target="_blank" class="btn-acceder">
+                                                <span>🎯</span>
+                                                <span>Acceder</span>
+                                            </a>
+                                            <button class="btn-completar" onclick="completarContenido({{ contenido.id }})">
+                                                <span>✅</span>
+                                                <span>Completar</span>
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if otros_contenidos %}
+        <div class="contenido-section">
+            <h2>📚 Contenido Adicional</h2>
+            {% for contenido in otros_contenidos %}
+                <div class="contenido-item {% if contenido.esta_completado_por(user) %}completado{% endif %}" data-contenido-id="{{ contenido.id }}">
+                    <div class="contenido-header">
+                        <div class="contenido-tipo tipo-{{ contenido.tipo_contenido }}">
+                            {% if contenido.tipo_contenido == 'video' %}🎥
+                            {% elif contenido.tipo_contenido == 'documento' %}📄
+                            {% elif contenido.tipo_contenido == 'sesion_vivo' %}🔴
+                            {% endif %}
+                        </div>
+                        <div class="contenido-info">
+                            <div class="contenido-titulo">{{ contenido.titulo }}</div>
+                            <div class="contenido-descripcion">{{ contenido.descripcion }}</div>
+                            {% if contenido.duracion_minutos %}
+                                <div class="contenido-duracion">
+                                    <span>⏱️</span>
+                                    <span>{{ contenido.duracion_minutos }} minutos</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="contenido-actions">
+                        {% if contenido.esta_completado_por(user) %}
+                            <div class="completado-badge">
+                                <span>✅</span>
+                                <span>Completado</span>
+                            </div>
+                        {% else %}
+                            <a href="{{ contenido.url_contenido }}" target="_blank" class="btn-acceder">
+                                <span>🎯</span>
+                                <span>Acceder</span>
+                            </a>
+                            {% if not contenido.es_obligatorio %}
+                                <button class="btn-completar" onclick="completarContenido({{ contenido.id }})">
+                                    <span>✅</span>
+                                    <span>Completar</span>
+                                </button>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </main>
+
+    <script>
+        function completarContenido(contenidoId) {
+            const btn = event.target.closest('.btn-completar');
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳</span><span>Completando...</span>';
+            
+            fetch(`/taller/{{ taller.id }}/contenido/${contenidoId}/completar`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const contenidoItem = document.querySelector(`[data-contenido-id="${contenidoId}"]`);
+                    contenidoItem.classList.add('completado');
+                    
+                    const actions = contenidoItem.querySelector('.contenido-actions');
+                    actions.innerHTML = `
+                        <div class="completado-badge">
+                            <span>✅</span>
+                            <span>Completado</span>
+                        </div>
+                    `;
+                    
+                    document.getElementById('progreso-porcentaje').textContent = data.progreso + '%';
+                    document.getElementById('progress-fill').style.width = data.progreso + '%';
+                    
+                    showAlert(data.mensaje, 'success');
+                    
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    showAlert(data.error || 'Error al completar contenido', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = originalContent;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('Error al completar contenido', 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            });
+        }
+        
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

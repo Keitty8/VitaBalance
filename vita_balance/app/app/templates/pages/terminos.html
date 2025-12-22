@@ -1,0 +1,190 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Términos y Condiciones - VitaBalance{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/terminos.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="terms-header">
+    <div class="terms-hero">
+        <div class="hero-content">
+            <h1>Términos y Condiciones</h1>
+            <p class="hero-subtitle">Transparencia y claridad en nuestros compromisos contigo</p>
+            <div class="update-badge">
+                <span>📅 Última actualización: 30 de Junio, 2025</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="terms-navigation-container">
+    <div class="terms-navigation">
+        <div class="nav-header">
+            <h3>🧭 Navegación Rápida</h3>
+            <p>Accede rápidamente a cualquier sección</p>
+        </div>
+        <div class="nav-grid">
+            <a href="#aceptacion" class="nav-item">
+                <div class="nav-content">
+                    <span class="nav-number">01</span>
+                    <div class="nav-text">
+                        <span class="nav-title">Aceptación</span>
+                        <span class="nav-desc">Términos básicos</span>
+                    </div>
+                </div>
+                <div class="nav-arrow">→</div>
+            </a>
+            <a href="#servicios" class="nav-item">
+                <div class="nav-content">
+                    <span class="nav-number">02</span>
+                    <div class="nav-text">
+                        <span class="nav-title">Servicios</span>
+                        <span class="nav-desc">Qué ofrecemos</span>
+                    </div>
+                </div>
+                <div class="nav-arrow">→</div>
+            </a>
+            <a href="#registro" class="nav-item">
+                <div class="nav-content">
+                    <span class="nav-number">03</span>
+                    <div class="nav-text">
+                        <span class="nav-title">Registro</span>
+                        <span class="nav-desc">Tu cuenta</span>
+                    </div>
+                </div>
+                <div class="nav-arrow">→</div>
+            </a>
+            <a href="#responsabilidad" class="nav-item">
+                <div class="nav-content">
+                    <span class="nav-number">04</span>
+                    <div class="nav-text">
+                        <span class="nav-title">Limitaciones</span>
+                        <span class="nav-desc">Responsabilidad</span>
+                    </div>
+                </div>
+                <div class="nav-arrow">→</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="terms-container">
+    <div class="executive-summary">
+        <h2 class="summary-title">📋 Resumen de Términos</h2>
+        <div class="summary-grid">
+            <div class="summary-point">
+                <span class="summary-icon">⚖️</span>
+                <div class="summary-text">
+                    <strong>Aceptación:</strong> Al usar VitaBalance, aceptas estos términos automáticamente.
+                </div>
+            </div>
+            <div class="summary-point">
+                <span class="summary-icon">🛡️</span>
+                <div class="summary-text">
+                    <strong>Servicios:</strong> Ofrecemos planes de ejercicio, talleres y contenido educativo.
+                </div>
+            </div>
+            <div class="summary-point">
+                <span class="summary-icon">👤</span>
+                <div class="summary-text">
+                    <strong>Cuenta:</strong> Eres responsable de mantener tus credenciales seguras.
+                </div>
+            </div>
+            <div class="summary-point">
+                <span class="summary-icon">⚕️</span>
+                <div class="summary-text">
+                    <strong>Limitaciones:</strong> No proporcionamos asesoramiento médico profesional.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="terms-section" id="aceptacion">
+        <div class="section-header">
+            <span class="section-number">1</span>
+            <h2 class="section-title">Aceptación de los Términos</h2>
+        </div>
+        <div class="section-content">
+            <p>Al acceder y utilizar VitaBalance, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguno de estos términos, no debe utilizar nuestros servicios.</p>
+            <p><strong>Al crear una cuenta o usar nuestros servicios, confirma que ha leído y acepta estos términos.</strong></p>
+        </div>
+    </div>
+
+    <div class="terms-section" id="servicios">
+        <div class="section-header">
+            <span class="section-number">2</span>
+            <h2 class="section-title">Descripción del Servicio</h2>
+        </div>
+        <div class="section-content">
+            <p>VitaBalance es una plataforma digital que ofrece:</p>
+            <ul>
+                <li><strong>Planes de Ejercicio:</strong> Rutinas personalizadas según tu nivel y objetivos</li>
+                <li><strong>Talleres Educativos:</strong> Contenido sobre nutrición, bienestar y salud mental</li>
+                <li><strong>Herramientas de Seguimiento:</strong> Monitoreo de progreso y estadísticas</li>
+                <li><strong>Comunidad:</strong> Espacios para interactuar con otros usuarios</li>
+            </ul>
+            <p>Nos reservamos el derecho de modificar, suspender o descontinuar cualquier aspecto del servicio en cualquier momento.</p>
+        </div>
+    </div>
+
+    <div class="terms-section" id="registro">
+        <div class="section-header">
+            <span class="section-number">3</span>
+            <h2 class="section-title">Registro y Cuenta de Usuario</h2>
+        </div>
+        <div class="section-content">
+            <p>Para utilizar ciertas funciones de VitaBalance, debe crear una cuenta proporcionando información precisa y completa.</p>
+            
+            <h3>Responsabilidades del Usuario:</h3>
+            <ul>
+                <li>Mantener la confidencialidad de sus credenciales de acceso</li>
+                <li>Proporcionar información veraz y actualizada</li>
+                <li>Notificar inmediatamente cualquier uso no autorizado de su cuenta</li>
+                <li>Cumplir con estos términos y condiciones</li>
+            </ul>
+            
+            <p>VitaBalance se reserva el derecho de suspender o cancelar cuentas que violen estos términos.</p>
+        </div>
+    </div>
+
+    <div class="terms-section" id="responsabilidad">
+        <div class="section-header">
+            <span class="section-number">4</span>
+            <h2 class="section-title">Limitaciones de Responsabilidad</h2>
+        </div>
+        <div class="section-content">
+            <h3>Descargo Médico:</h3>
+            <p><strong>VitaBalance no proporciona asesoramiento médico profesional.</strong> Todo el contenido y las recomendaciones son únicamente para fines informativos y educativos.</p>
+            
+            <h3>Limitaciones:</h3>
+            <ul>
+                <li>Los servicios se proporcionan "tal como están"</li>
+                <li>No garantizamos resultados específicos de salud o fitness</li>
+                <li>El usuario es responsable de consultar con profesionales de la salud</li>
+                <li>VitaBalance no será responsable por lesiones o daños derivados del uso de nuestros servicios</li>
+            </ul>
+            
+            <p><strong>Importante:</strong> Siempre consulte con su médico antes de comenzar cualquier programa de ejercicio o cambio en su dieta.</p>
+        </div>
+    </div>
+
+    <div class="terms-section">
+        <div class="section-header">
+            <span class="section-number">5</span>
+            <h2 class="section-title">Contacto</h2>
+        </div>
+        <div class="section-content">
+            <p>Si tiene alguna pregunta sobre estos Términos y Condiciones, puede contactarnos a través de:</p>
+            <ul>
+                <li><strong>Email:</strong> legal@vitabalance.com</li>
+                <li><strong>Teléfono:</strong> +1 (555) 123-4567</li>
+                <li><strong>Dirección:</strong> 123 Wellness Street, Health City, HC 12345</li>
+            </ul>
+            
+            <p>Estos términos entran en vigor a partir de la fecha de última actualización indicada en la parte superior de esta página.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - VitaBalance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+<body>
+    <header class="auth-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance</h1>
+            <nav class="auth-nav">
+                <a href="{{ url_for('home.index') }}" class="nav-link">← Volver al inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Accede a tu cuenta y continúa tu transformación</p>
+                </div>
+
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-error">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" class="auth-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" id="email" name="email" class="form-input" required placeholder="tu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" id="password" name="password" class="form-input" required placeholder="Tu contraseña">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary full-width">
+                        <span class="btn-icon">🔐</span>
+                        Iniciar Sesión
+                    </button>
+                </form>
+
+                <div class="auth-links">
+                    <p>¿Aún no tienes cuenta?</p>
+                    <a href="{{ url_for('home.index') }}#inicio-cambio" class="link-primary">Regístrate aquí</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

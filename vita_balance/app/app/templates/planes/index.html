@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Planes - VitaBalance Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard Admin</a>
+                <a href="{{ url_for('talleres.index') }}" class="nav-link">Talleres</a>
+                <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Dashboard Usuario</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Gestión de Planes de Salud</h2>
+                <p>Administra y controla todos los planes de salud del sistema</p>
+            </div>
+            <div class="page-actions">
+                <a href="{{ url_for('planes.crear') }}" class="btn btn-primary">
+                    <span class="btn-icon">➕</span>
+                    Crear Nuevo Plan
+                </a>
+            </div>
+        </div>
+
+        <div class="content-card">
+            {% if planes %}
+            <div class="table-container">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Tipo</th>
+                            <th>Calorías</th>
+                            <th>Proteínas</th>
+                            <th>Rutina</th>
+                            <th>Usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for plan in planes %}
+                        <tr>
+                            <td>
+                                <div class="plan-item">
+                                    {% if plan.imagen %}
+                                        <img src="{{ url_for('static', filename='img/' + plan.imagen) }}?v={{ range(1, 1000) | random }}" alt="{{ plan.nombre }}" class="plan-thumbnail" loading="lazy">
+                                    {% else %}
+                                        <div class="plan-thumbnail-placeholder">📋</div>
+                                    {% endif %}
+                                    <div class="item-name">{{ plan.nombre }}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-{{ 'success' if plan.tipo == 'ganar_masa' else 'warning' }}">
+                                    {{ plan.tipo.replace('_', ' ').title() }}
+                                </span>
+                            </td>
+                            <td>{{ plan.calorias or '-' }}</td>
+                            <td>{{ plan.proteinas or '-' }}g</td>
+                            <td>
+                                <div class="routine-preview">{{ (plan.rutina[:30] + '...') if plan.rutina and plan.rutina|length > 30 else (plan.rutina or '-') }}</div>
+                            </td>
+                            <td>
+                                <div class="user-info">
+                                    {{ plan.user.username if plan.user else 'Sin usuario' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ url_for('planes.editar', id=plan.id) }}" class="btn-action btn-edit">
+                                        ✏️ Editar
+                                    </a>
+                                    <form action="{{ url_for('planes.eliminar', id=plan.id) }}" method="post" style="display:inline;">
+                                        <button class="btn-action btn-delete" onclick="return confirm('¿Eliminar plan?')">
+                                            🗑️ Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">📋</div>
+                <h3>No hay planes registrados</h3>
+                <p>Comienza creando el primer plan de salud para tus usuarios</p>
+                <a href="{{ url_for('planes.crear') }}" class="btn btn-primary">Crear Primer Plan</a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+/* ==============================================
+   TÉRMINOS Y CONDICIONES - DISEÑO PROFESIONAL
+   ============================================== */
+
+/* Contenedor principal - Limitar ancho al 70-80% */
+.terms-container {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Header simplificado */
+.terms-header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    text-align: center;
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+}
+
+.terms-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+.update-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+}
+
+/* Navegación - Limitar ancho */
+.terms-navigation-container {
+    max-width: 75%;
+    margin: 0 auto 2rem auto;
+    padding: 0 1rem;
+}
+
+.terms-navigation {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.nav-header h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.nav-header p {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-number {
+    background: #3498db;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.nav-title {
+    font-weight: 600;
+    color: #2c3e50;
+    display: block;
+}
+
+.nav-desc {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: block;
+}
+
+.nav-arrow {
+    font-size: 1.2rem;
+    color: #3498db;
+}
+
+/* Resumen ejecutivo */
+.executive-summary {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 6px 6px 0;
+}
+
+.summary-title {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.summary-icon {
+    color: #3498db;
+    margin-top: 0.2rem;
+}
+
+.summary-text strong {
+    color: #2c3e50;
+}
+
+/* Secciones principales */
+.terms-section {
+    margin: 2rem 0;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.terms-section:last-child {
+    border-bottom: none;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-number {
+    background: #3498db;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.section-content {
+    line-height: 1.7;
+    color: #495057;
+}
+
+.section-content h3 {
+    color: #2c3e50;
+    margin: 1.5rem 0 1rem 0;
+    font-size: 1.2rem;
+}
+
+.section-content p {
+    margin-bottom: 1rem;
+}
+
+.section-content ul, .section-content ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.section-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .terms-container,
+    .terms-navigation-container {
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .terms-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .nav-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Eliminar elementos decorativos innecesarios */
+.hero-decoration,
+.floating-shape,
+.terms-icon {
+    display: none;
+}

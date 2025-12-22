@@ -1,0 +1,190 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Contacto - VitaBalance{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📍 Contáctanos</h1>
+    <p class="page-subtitle">Estamos aquí para ayudarte en tu camino hacia una vida más saludable</p>
+</div>
+
+<div class="content-container">
+    <div class="page-section">
+        <h2>🌍 Nuestras Oficinas</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🏢</div>
+                <h3>Oficina Principal</h3>
+                <p><strong>📍 Dirección:</strong><br>
+                123 Wellness Avenue<br>
+                Health District, Ciudad<br>
+                Código Postal 12345</p>
+                <p><strong>⏰ Horario:</strong><br>
+                Lun-Vie: 8:00 AM - 6:00 PM<br>
+                Sáb: 9:00 AM - 2:00 PM<br>
+                Dom: Cerrado</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🎯</div>
+                <h3>Centro de Bienestar</h3>
+                <p><strong>📍 Dirección:</strong><br>
+                456 Fitness Boulevard<br>
+                Wellness Park, Ciudad<br>
+                Código Postal 67890</p>
+                <p><strong>⏰ Horario:</strong><br>
+                Lun-Dom: 6:00 AM - 10:00 PM<br>
+                Talleres presenciales<br>
+                Consultas personalizadas</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🔬</div>
+                <h3>Laboratorio de Investigación</h3>
+                <p><strong>📍 Dirección:</strong><br>
+                789 Innovation Street<br>
+                Tech Campus, Ciudad<br>
+                Código Postal 11111</p>
+                <p><strong>⏰ Horario:</strong><br>
+                Lun-Vie: 9:00 AM - 5:00 PM<br>
+                Solo con cita previa<br>
+                Estudios y pruebas</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📞 Información de Contacto</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">📱</div>
+                <h3>Contacto General</h3>
+                <p><strong>Teléfono Principal:</strong><br>
+                <a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+                
+                <p><strong>WhatsApp:</strong><br>
+                <a href="https://wa.me/15551234567">+1 (555) 123-4567</a></p>
+                
+                <p><strong>Email General:</strong><br>
+                <a href="mailto:info@vitabalance.com">info@vitabalance.com</a></p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-card-icon">🎯</div>
+                <h3>Departamentos Especializados</h3>
+                <p><strong>Soporte Técnico:</strong><br>
+                <a href="mailto:soporte@vitabalance.com">soporte@vitabalance.com</a></p>
+                
+                <p><strong>Ventas y Planes:</strong><br>
+                <a href="mailto:ventas@vitabalance.com">ventas@vitabalance.com</a></p>
+                
+                <p><strong>Prensa y Medios:</strong><br>
+                <a href="mailto:prensa@vitabalance.com">prensa@vitabalance.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📝 Envíanos un Mensaje</h2>
+        <form class="contact-form" action="#" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                </div>
+                
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" name="apellido" required placeholder="Tu apellido">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono (Opcional)</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="+1 (555) 000-0000">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="motivo">Motivo de Contacto</label>
+                <select id="motivo" name="motivo" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="informacion">ℹ️ Solicitar información sobre planes</option>
+                    <option value="soporte">🔧 Soporte técnico</option>
+                    <option value="sugerencia">💡 Sugerencia o feedback</option>
+                    <option value="partnership">🤝 Oportunidades de colaboración</option>
+                    <option value="prensa">📰 Consulta de prensa</option>
+                    <option value="facturacion">💳 Consulta de facturación</option>
+                    <option value="otro">❓ Otro</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="asunto">Asunto</label>
+                <input type="text" id="asunto" name="asunto" required placeholder="Resumen de tu consulta">
+            </div>
+            
+            <div class="form-group">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" required placeholder="Cuéntanos más detalles sobre tu consulta..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter" style="margin: 0; font-weight: normal;">Quiero recibir noticias y consejos de salud por email</label>
+            </div>
+            
+            <button type="submit" class="btn-submit">📤 Enviar Mensaje</button>
+        </form>
+    </div>
+
+    <div class="page-section">
+        <h2>🚗 Cómo Llegar</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🚌</div>
+                <h3>Transporte Público</h3>
+                <ul>
+                    <li><strong>Metro:</strong> Línea Verde, estación "Wellness Center" (5 min caminando)</li>
+                    <li><strong>Autobús:</strong> Rutas 15, 28, 42 - Parada "Health District"</li>
+                    <li><strong>Tren:</strong> Estación Central (15 min en taxi/uber)</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-card-icon">🚗</div>
+                <h3>En Automóvil</h3>
+                <ul>
+                    <li><strong>Estacionamiento:</strong> Gratuito para visitantes (2 horas máximo)</li>
+                    <li><strong>Estacionamiento extendido:</strong> $5/hora después de las 2 horas</li>
+                    <li><strong>Valet parking:</strong> Disponible Lun-Vie ($15/día)</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-card-icon">🚴‍♀️</div>
+                <h3>Opciones Eco-Friendly</h3>
+                <ul>
+                    <li><strong>Bicicletas:</strong> Estación de bike-sharing frente al edificio</li>
+                    <li><strong>Scooters:</strong> Zona de estacionamiento designada</li>
+                    <li><strong>Caminando:</strong> Ruta peatonal segura desde el centro</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <div class="highlight-box">
+            <h3>🎯 ¿Listo para Comenzar?</h3>
+            <p>No esperes más para transformar tu vida. ¡Únete a miles de personas que ya están viviendo más saludablemente con VitaBalance!</p>
+            <a href="{{ url_for('home.index') }}#inicio-cambio" class="btn-submit">
+                🚀 Comenzar Ahora
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

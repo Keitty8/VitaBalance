@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Guía de Talleres - VitaBalance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <style>
+        .guide-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .guide-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .step-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #00ff88 0%, #00a854 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        
+        .btn-large {
+            background: white;
+            color: #333;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="user-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance</h1>
+            <nav class="user-nav">
+                <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('dashboard.mis_talleres') }}" class="nav-link">Mis Talleres</a>
+                <div class="user-info">
+                    <span class="user-avatar">{{ user.username[0].upper() }}</span>
+                    <span class="user-name">{{ user.username }}</span>
+                </div>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout-btn">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="user-main">
+        <div class="guide-hero">
+            <h1>🎯 ¡Bienvenido a los Talleres VitaBalance!</h1>
+            <p>Descubre cómo aprovechar al máximo tu experiencia de aprendizaje</p>
+        </div>
+
+        <div class="guide-section">
+            <h2>🚀 Cómo Funciona</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Inscríbete</h3>
+                    <p>Explora los talleres disponibles y encuentra el que mejor se adapte a tus objetivos. La inscripción es gratuita y puedes cancelar cuando quieras.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Accede al Contenido</h3>
+                    <p>Una vez inscrito, accede a videos, rutinas diarias, documentos descargables y sesiones en vivo. Todo el contenido está organizado para tu aprendizaje progresivo.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Sigue tu Progreso</h3>
+                    <p>Marca los contenidos como completados y sigue tu progreso. Cada taller tiene rutinas de 7 días con videos guiados y material complementario.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Aplica lo Aprendido</h3>
+                    <p>Utiliza las guías descargables, sigue las rutinas y participa en sesiones en vivo para maximizar tus resultados de bienestar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>✨ Características de los Talleres</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎥</div>
+                    <h3>Videos Guiados</h3>
+                    <p>Rutinas en video con instructores expertos para cada día de la semana</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Programas de 7 Días</h3>
+                    <p>Rutinas estructuradas con progresión diaria para resultados óptimos</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Material Descargable</h3>
+                    <p>Guías de nutrición e hidratación en PDF para consulta offline</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔴</div>
+                    <h3>Sesiones en Vivo</h3>
+                    <p>Participa en sesiones interactivas para resolver dudas y mantener motivación</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Seguimiento de Progreso</h3>
+                    <p>Visualiza tu avance y marca contenidos completados automáticamente</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Objetivos Personalizados</h3>
+                    <p>Talleres diseñados según tus metas: perder peso, ganar masa o mejorar salud</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>🎨 Talleres Disponibles</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏋️‍♂️</div>
+                    <h3>Rutinas Personales 7 Días</h3>
+                    <p>Programa completo con rutinas diarias, seguimiento nutricional y sesiones en vivo</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Plan Básico</h3>
+                    <p>Introducción al fitness con fundamentos de ejercicio y técnicas correctas</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Express Perder Peso</h3>
+                    <p>Programa intensivo con cardio de alta intensidad y entrenamiento metabólico</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h3>Hipertrofia Avanzada</h3>
+                    <p>Técnicas especializadas para ganancia de masa muscular y desarrollo avanzado</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>¿Listo para comenzar tu transformación?</h2>
+            <p>Explora los talleres disponibles y encuentra el programa perfecto para ti</p>
+            <a href="{{ url_for('dashboard.dashboard') }}" class="btn-large">Ver Talleres Disponibles</a>
+        </div>
+    </main>
+</body>
+</html>

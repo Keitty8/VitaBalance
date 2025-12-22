@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración - VitaBalance</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Dashboard Usuario</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="welcome-section">
+            <h2>Panel de Administración</h2>
+            <p>Gestiona los planes de salud y talleres de VitaBalance</p>
+        </div>
+
+        <div class="admin-actions">
+            <div class="action-card">
+                <div class="card-icon">📋</div>
+                <h3>Gestionar Planes</h3>
+                <p>Crear, editar y administrar planes de salud personalizados</p>
+                <a href="{{ url_for('planes.index') }}" class="btn btn-primary">Ver Planes</a>
+            </div>
+            <div class="action-card">
+                <div class="card-icon">🎯</div>
+                <h3>Gestionar Talleres</h3>
+                <p>Administrar talleres y actividades para los usuarios</p>
+                <a href="{{ url_for('talleres.index') }}" class="btn btn-secondary">Ver Talleres</a>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-header">
+                <h3>Estadísticas del Sistema</h3>
+                <div class="filter-controls">
+                    <select id="periodoFilter" class="form-select">
+                        <option value="total">Todos los tiempos</option>
+                        <option value="mes">Último mes</option>
+                        <option value="semana">Última semana</option>
+                    </select>
+                    <button id="refreshStats" class="btn btn-primary btn-sm">🔄 Actualizar</button>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalUsuarios">-</div>
+                        <div class="stat-label">Total Usuarios</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalPlanes">-</div>
+                        <div class="stat-label">Planes Creados</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalTalleres">-</div>
+                        <div class="stat-label">Talleres Activos</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalCupos">-</div>
+                        <div class="stat-label">Cupos Disponibles</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Usuarios por Objetivo</h4>
+                        <div class="chart-controls">
+                            <button class="chart-type-btn active" data-chart="usuariosPorObjetivo" data-type="bar">📊</button>
+                            <button class="chart-type-btn" data-chart="usuariosPorObjetivo" data-type="doughnut">🍩</button>
+                        </div>
+                    </div>
+                    <canvas id="usuariosPorObjetivo"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Distribución por Género</h4>
+                        <div class="chart-controls">
+                            <button class="chart-type-btn active" data-chart="usuariosPorGenero" data-type="pie">🥧</button>
+                            <button class="chart-type-btn" data-chart="usuariosPorGenero" data-type="bar">📊</button>
+                        </div>
+                    </div>
+                    <canvas id="usuariosPorGenero"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Nivel de Actividad Física</h4>
+                        <div class="chart-controls">
+                            <button class="chart-type-btn active" data-chart="usuariosPorActividad" data-type="doughnut">🍩</button>
+                            <button class="chart-type-btn" data-chart="usuariosPorActividad" data-type="bar">📊</button>
+                        </div>
+                    </div>
+                    <canvas id="usuariosPorActividad"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Planes por Tipo</h4>
+                        <div class="chart-controls">
+                            <button class="chart-type-btn active" data-chart="planesPorTipo" data-type="bar">📊</button>
+                            <button class="chart-type-btn" data-chart="planesPorTipo" data-type="line">📈</button>
+                        </div>
+                    </div>
+                    <canvas id="planesPorTipo"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Talleres por Objetivo</h4>
+                    </div>
+                    <canvas id="talleresPorObjetivo"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Promedio de Calorías por Tipo de Plan</h4>
+                    </div>
+                    <canvas id="promedioCalorias"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script>
+let charts = {};
+let currentData = {};
+
+const colors = {
+    primary: ['#3a2f1b', '#5d4e3a', '#8b7355', '#a68b5b', '#c4a373'],
+    success: ['#27ae60', '#2ecc71', '#58d68d', '#82e0aa', '#a9dfbf'],
+    warning: ['#f39c12', '#e67e22', '#d35400', '#e74c3c', '#c0392b'],
+    info: ['#3498db', '#5dade2', '#85c1e9', '#aed6f1', '#d6eaf8']
+};
+
+function loadStats(periodo = 'total') {
+    fetch(`{{ url_for("admin.estadisticas") }}?periodo=${periodo}`)
+        .then(response => response.json())
+        .then(data => {
+            currentData = data;
+            updateQuickStats(data.estadisticas_generales);
+            updateCharts(data);
+        })
+        .catch(error => {
+            console.error('Error loading stats:', error);
+        });
+}
+
+function updateQuickStats(stats) {
+    document.getElementById('totalUsuarios').textContent = stats.total_usuarios || 0;
+    document.getElementById('totalPlanes').textContent = stats.total_planes || 0;
+    document.getElementById('totalTalleres').textContent = stats.total_talleres || 0;
+    document.getElementById('totalCupos').textContent = stats.total_cupos || 0;
+}
+
+function updateCharts(data) {
+    createChart('usuariosPorObjetivo', {
+        type: 'bar',
+        data: {
+            labels: Object.keys(data.usuarios_por_objetivo),
+            datasets: [{
+                label: 'Usuarios por objetivo',
+                data: Object.values(data.usuarios_por_objetivo),
+                backgroundColor: colors.primary,
+                borderColor: colors.primary[0],
+                borderWidth: 1
+            }]
+        },
+        options: getChartOptions('Usuarios por objetivo')
+    });
+
+    createChart('usuariosPorGenero', {
+        type: 'pie',
+        data: {
+            labels: Object.keys(data.usuarios_por_genero),
+            datasets: [{
+                label: 'Usuarios por género',
+                data: Object.values(data.usuarios_por_genero),
+                backgroundColor: colors.info,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: getChartOptions('Usuarios por género', true)
+    });
+
+    createChart('usuariosPorActividad', {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(data.usuarios_por_actividad).map(key => key.charAt(0).toUpperCase() + key.slice(1)),
+            datasets: [{
+                label: 'Nivel de actividad',
+                data: Object.values(data.usuarios_por_actividad),
+                backgroundColor: colors.success,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: getChartOptions('Nivel de actividad física', true)
+    });
+
+    createChart('planesPorTipo', {
+        type: 'bar',
+        data: {
+            labels: Object.keys(data.planes_por_tipo).map(key => key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())),
+            datasets: [{
+                label: 'Planes por tipo',
+                data: Object.values(data.planes_por_tipo),
+                backgroundColor: colors.warning,
+                borderColor: colors.warning[0],
+                borderWidth: 1
+            }]
+        },
+        options: getChartOptions('Planes por tipo')
+    });
+
+    createChart('talleresPorObjetivo', {
+        type: 'bar',
+        data: {
+            labels: Object.keys(data.talleres_por_objetivo).map(key => key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())),
+            datasets: [{
+                label: 'Talleres por objetivo',
+                data: Object.values(data.talleres_por_objetivo),
+                backgroundColor: colors.success,
+                borderColor: colors.success[0],
+                borderWidth: 1
+            }]
+        },
+        options: getChartOptions('Talleres por objetivo')
+    });
+
+    if (data.promedio_calorias && Object.keys(data.promedio_calorias).length > 0) {
+        createChart('promedioCalorias', {
+            type: 'bar',
+            data: {
+                labels: Object.keys(data.promedio_calorias).map(key => key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())),
+                datasets: [{
+                    label: 'Promedio de calorías',
+                    data: Object.values(data.promedio_calorias),
+                    backgroundColor: colors.warning,
+                    borderColor: colors.warning[0],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...getChartOptions('Promedio de calorías por tipo'),
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Calorías'
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+function createChart(canvasId, config) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+
+    if (charts[canvasId]) {
+        charts[canvasId].destroy();
+    }
+
+    charts[canvasId] = new Chart(ctx, config);
+}
+
+function getChartOptions(title, isPie = false) {
+    const baseOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: false
+            },
+            legend: {
+                display: isPie,
+                position: 'bottom'
+            }
+        }
+    };
+
+    if (!isPie) {
+        baseOptions.scales = {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        };
+    }
+
+    return baseOptions;
+}
+
+function changeChartType(chartId, newType) {
+    if (!charts[chartId] || !currentData) return;
+
+    const chartData = charts[chartId].config.data;
+    
+    const colorSet = chartId.includes('usuario') ? 
+        (chartId.includes('objetivo') ? colors.primary : colors.info) : 
+        (chartId.includes('plan') ? colors.warning : colors.success);
+
+    chartData.datasets[0].backgroundColor = newType === 'line' ? 
+        colorSet[0] : colorSet;
+    chartData.datasets[0].borderColor = newType === 'line' ? 
+        colorSet[0] : (newType.includes('doughnut') || newType === 'pie' ? '#fff' : colorSet[0]);
+
+    createChart(chartId, {
+        type: newType,
+        data: chartData,
+        options: getChartOptions(charts[chartId].config.options.plugins?.title?.text || '', 
+                               newType === 'pie' || newType === 'doughnut')
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadStats();
+
+    document.getElementById('periodoFilter').addEventListener('change', function() {
+        loadStats(this.value);
+    });
+
+    document.getElementById('refreshStats').addEventListener('click', function() {
+        const periodo = document.getElementById('periodoFilter').value;
+        loadStats(periodo);
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('chart-type-btn')) {
+            const chartId = e.target.dataset.chart;
+            const newType = e.target.dataset.type;
+            
+            const container = e.target.parentElement;
+            container.querySelectorAll('.chart-type-btn').forEach(btn => 
+                btn.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            changeChartType(chartId, newType);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

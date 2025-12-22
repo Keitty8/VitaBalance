@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VitaBalance{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="logo"><a href="{{ url_for('home.index') }}">VitaBalance</a></h1>
+            <nav class="main-nav">
+                <a href="{{ url_for('home.index') }}#ofrecemos" class="nav-link">Servicios</a>
+                <a href="{{ url_for('home.index') }}#inicio-cambio" class="nav-link">Registro</a>
+                <a href="{{ url_for('auth.login') }}" class="nav-link login-btn">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>VitaBalance</h3>
+                <p>Tu compañero en el camino hacia una vida más saludable y equilibrada.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('home.index') }}#ofrecemos">🏋️‍♀️ Planes de Salud</a></li>
+                    <li><a href="{{ url_for('home.index') }}#ofrecemos">🎯 Talleres</a></li>
+                    <li><a href="{{ url_for('home.index') }}#ofrecemos">👥 Comunidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Recursos</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('pages.blog') }}">📚 Blog</a></li>
+                    <li><a href="{{ url_for('pages.faq') }}">❓ FAQ</a></li>
+                    <li><a href="{{ url_for('pages.soporte') }}">📞 Soporte</a></li>
+                    <li><a href="{{ url_for('pages.terminos') }}">📋 Términos</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Empresa</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('pages.sobre_nosotros') }}">🏢 Sobre Nosotros</a></li>
+                    <li><a href="{{ url_for('pages.privacidad') }}">🔒 Privacidad</a></li>
+                    <li><a href="{{ url_for('pages.contacto') }}">📧 Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <div class="contact-info">
+                    <p><a href="mailto:info@vitabalance.com">📧 info@vitabalance.com</a></p>
+                    <p><a href="tel:+15551234567">📱 +1 (555) 123-4567</a></p>
+                    <p><a href="{{ url_for('pages.contacto') }}">📍 Contáctanos</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 VitaBalance. Todos los derechos reservados. ❤️ Hecho con pasión por tu bienestar.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts del Chatbot -->
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+</html>

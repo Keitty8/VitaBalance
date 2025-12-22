@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Plan - VitaBalance Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard Admin</a>
+                <a href="{{ url_for('planes.index') }}" class="nav-link">Ver Planes</a>
+                <a href="{{ url_for('talleres.index') }}" class="nav-link">Talleres</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Crear Nuevo Plan de Salud</h2>
+                <p>Completa la información para generar un plan personalizado</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre del Plan</label>
+                        <input type="text" class="form-input" name="nombre" id="nombre" required placeholder="Ej: Plan Pérdida de Peso Básico">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipo" class="form-label">Tipo de Plan</label>
+                        <select name="tipo" id="tipo" class="form-select" required>
+                            <option value="">Selecciona un tipo</option>
+                            <option value="perder_peso">Perder Peso</option>
+                            <option value="ganar_masa">Ganar Masa Muscular</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="imagen" class="form-label">Imagen del Plan</label>
+                        <select name="imagen" id="imagen" class="form-select">
+                            <option value="">Sin imagen</option>
+                            <option value="plan_basico.png">Plan Básico (plan_basico.png)</option>
+                            <option value="hiit_power.png">HIIT Power (hiit_power.png)</option>
+                            <option value="express_perder.png">Express Perder (express_perder.png)</option>
+                            <option value="hipertrofia.png">Hipertrofia (hipertrofia.png)</option>
+                            <option value="volumen_eficiente.png">Volumen Eficiente (volumen_eficiente.png)</option>
+                            <option value="avanzado_masa.png">Avanzado Masa (avanzado_masa.png)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea name="descripcion" id="descripcion" class="form-textarea" rows="4" placeholder="Describe los objetivos y características de este plan..."></textarea>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>ℹ️ Información Importante</h4>
+                    <p>Los valores de calorías, proteínas y rutina se calcularán automáticamente según el perfil del usuario asignado al plan.</p>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{{ url_for('planes.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Crear Plan</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

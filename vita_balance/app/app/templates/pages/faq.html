@@ -1,0 +1,280 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Preguntas Frecuentes - VitaBalance{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>❓ Preguntas Frecuentes</h1>
+    <p class="page-subtitle">Encuentra respuestas a las preguntas más comunes sobre VitaBalance</p>
+</div>
+
+<div class="content-container">
+    <div class="faq-search">
+        <input type="text" placeholder="🔍 Buscar en las preguntas..." class="search-input">
+    </div>
+
+    <div class="faq-categories">
+        <h2>📋 Categorías</h2>
+        <div class="category-nav">
+            <a href="#cuenta" class="category-btn active">👤 Cuenta</a>
+            <a href="#planes" class="category-btn">💪 Planes</a>
+            <a href="#talleres" class="category-btn">🎯 Talleres</a>
+            <a href="#pagos" class="category-btn">💳 Pagos</a>
+            <a href="#tecnico" class="category-btn">🔧 Técnico</a>
+        </div>
+    </div>
+
+    <div class="faq-section" id="cuenta">
+        <h2>👤 Cuenta y Registro</h2>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>¿Cómo puedo crear una cuenta en VitaBalance?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Crear tu cuenta es muy fácil. Solo necesitas:</p>
+                <ol>
+                    <li>Ir a la página principal y hacer clic en "Inicia tu cambio"</li>
+                    <li>Completar el formulario con tu información básica</li>
+                    <li>Proporcionar datos sobre tus objetivos de salud</li>
+                    <li>Confirmar tu email y ¡listo!</li>
+                </ol>
+                <p>El registro es completamente gratuito y toma menos de 2 minutos.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>¿Puedo cambiar mi información personal después del registro?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>¡Por supuesto! Puedes actualizar tu información en cualquier momento desde tu panel de usuario. Esto incluye peso, altura, objetivos y preferencias de entrenamiento.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Qué es VitaBalance?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                VitaBalance es una plataforma integral de bienestar que combina planes de ejercicio personalizados, talleres de bienestar mental, seguimiento nutricional y una comunidad de apoyo para ayudarte a alcanzar tus objetivos de salud.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Para quién está diseñado VitaBalance?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                VitaBalance está diseñado para personas de todos los niveles de fitness, desde principiantes hasta atletas avanzados. Nuestros planes se adaptan a tu nivel actual, objetivos específicos y estilo de vida.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Necesito equipo especial para empezar?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                No necesitas equipo especializado para comenzar. Ofrecemos rutinas que puedes hacer en casa con peso corporal. Sin embargo, también tenemos planes que incluyen ejercicios con equipo básico como mancuernas o bandas elásticas.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-section" id="planes">
+        <h2>💪 Planes y Precios</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Cuánto cuesta VitaBalance?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Ofrecemos diferentes planes para adaptarnos a tu presupuesto. Tenemos un plan básico gratuito y planes premium desde $19.99/mes. Todos incluyen acceso a la comunidad y seguimiento básico.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Puedo cancelar mi suscripción en cualquier momento?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Sí, puedes cancelar tu suscripción en cualquier momento desde tu perfil de usuario. No hay compromisos a largo plazo ni penalizaciones por cancelación.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Ofrecen descuentos para estudiantes?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Sí, ofrecemos un 25% de descuento para estudiantes con identificación válida. También tenemos descuentos familiares y promociones especiales durante el año.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Cómo funcionan los planes personalizados?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Al registrarte, completas un cuestionario sobre tu nivel actual de fitness, objetivos, disponibilidad de tiempo y preferencias. Nuestro algoritmo crea un plan específico para ti que se ajusta semanalmente según tu progreso.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Puedo cambiar mi plan si mis objetivos cambian?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                ¡Por supuesto! Puedes actualizar tus objetivos en cualquier momento desde tu panel de control, y tu plan se ajustará automáticamente a tus nuevas metas.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-section" id="talleres">
+        <h2>🎯 Talleres y Comunidad</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Cómo funcionan los talleres en vivo?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Los talleres se realizan semanalmente a través de videoconferencia. Incluyen sesiones de meditación, cocina saludable, técnicas de relajación y charlas motivacionales. También quedan grabados para verlos después.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿La comunidad es segura y privada?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Sí, nuestra comunidad es un espacio seguro y moderado. Tenemos reglas claras de respeto y apoyo mutuo. Puedes controlar qué información compartes y con quién interactúas.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-section" id="pagos">
+        <h2>💳 Pagos y Facturación</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Qué métodos de pago aceptan?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Aceptamos todas las tarjetas de crédito principales (Visa, MasterCard, American Express), PayPal, y transferencias bancarias. Todos los pagos están protegidos con encriptación SSL.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Cuándo se cobra la suscripción?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Los pagos se procesan automáticamente cada mes en la fecha de tu registro inicial. Recibirás un recordatorio por email 3 días antes del cargo.
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-section" id="tecnico">
+        <h2>🔧 Soporte Técnico</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Hay una app móvil?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Sí, tenemos apps para iOS y Android que se sincronizan con tu cuenta web. Puedes hacer ejercicios, registrar comidas, participar en la comunidad y acceder a todos tus datos desde cualquier dispositivo.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Qué hago si tengo problemas técnicos?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Nuestro equipo de soporte está disponible 24/7 a través del chat en vivo, email o WhatsApp. También tenemos una extensa base de conocimientos con tutoriales paso a paso.
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-support">
+        <h2>❓ ¿No encontraste lo que buscabas?</h2>
+        <p>Nuestro equipo de soporte está aquí para ayudarte</p>
+        <div class="support-options">
+            <a href="{{ url_for('pages.contacto') }}" class="support-btn">📧 Contactar Soporte</a>
+            <a href="{{ url_for('pages.soporte') }}" class="support-btn">💬 Chat en Vivo</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const toggle = item.querySelector('.faq-toggle');
+        
+        question.addEventListener('click', () => {
+            const isOpen = answer.style.display === 'block';
+            answer.style.display = isOpen ? 'none' : 'block';
+            toggle.textContent = isOpen ? '+' : '-';
+        });
+    });
+
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const faqSections = document.querySelectorAll('.faq-section');
+
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            faqSections.forEach(section => section.style.display = 'none');
+            
+            const targetId = btn.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+        });
+    });
+
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3, .faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const questionText = question ? question.textContent.toLowerCase() : '';
+                const answerText = answer ? answer.textContent.toLowerCase() : '';
+                
+                if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

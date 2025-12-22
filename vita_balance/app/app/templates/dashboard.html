@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Panel - VitaBalance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <style>
+        .plan-personalizado {
+            margin-top: 1rem;
+        }
+        
+        .plan-card-main {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid #dee2e6;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .plan-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .plan-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .plan-img-placeholder {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .plan-content-main {
+            min-width: 0;
+        }
+        
+        .plan-header-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-header-main h4 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .plan-status {
+            background: linear-gradient(135deg, #00ff88, #00e07a);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .plan-description {
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-description p {
+            color: #6c757d;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .plan-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .metric-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .metric-info {
+            flex: 1;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .metric-unit {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: normal;
+        }
+        
+        .plan-exercise-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .plan-exercise-section h5 {
+            margin: 0 0 1rem 0;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .exercise-recommendation p {
+            margin: 0 0 1rem 0;
+            color: #495057;
+            line-height: 1.6;
+        }
+        
+        .exercise-details {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .exercise-details h6 {
+            margin: 0 0 0.75rem 0;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .exercise-details ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .exercise-details li {
+            margin-bottom: 0.5rem;
+            color: #495057;
+            line-height: 1.5;
+        }
+        
+        .exercise-details li strong {
+            color: #2c3e50;
+        }
+        
+        .plan-tips {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .plan-tips h5 {
+            margin: 0 0 1rem 0;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .tips-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .tip-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .tip-text {
+            color: #495057;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+        
+        .empty-action {
+            margin-top: 1rem;
+        }
+        
+        .empty-hint {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        @media (max-width: 768px) {
+            .plan-card-main {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            
+            .plan-metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.75rem;
+            }
+            
+            .metric-card {
+                padding: 0.75rem;
+            }
+            
+            .plan-header-main {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="user-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance</h1>
+            <nav class="user-nav">
+                <a href="{{ url_for('dashboard.mis_talleres') }}" class="nav-link">Mis Talleres</a>
+                <div class="user-info">
+                    <span class="user-avatar">{{ user.username[0].upper() }}</span>
+                    <span class="user-name">{{ user.username }}</span>
+                </div>
+                {% if user.role == 'admin' %}
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link admin-link">Panel Admin</a>
+                {% endif %}
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout-btn">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="user-main">
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2>¡Hola, {{ user.username }}! 👋</h2>
+                <p>Bienvenido a tu espacio personal de bienestar</p>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <div class="stat-info">
+                            <div class="stat-label">Tu objetivo</div>
+                            <div class="stat-value">{{ user.objetivo.replace("_", " ").title() if user.objetivo else 'No definido' }}</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⚡</span>
+                        <div class="stat-info">
+                            <div class="stat-label">Actividad</div>
+                            <div class="stat-value">{{ user.actividad.title() if user.actividad else 'No definida' }}</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📊</span>
+                        <div class="stat-info">
+                            <div class="stat-label">Planes activos</div>
+                            <div class="stat-value">{{ planes|length }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <h3>📝 Actualizar Datos Personales</h3>
+                <p>Mantén tu información actualizada para planes más precisos</p>
+            </div>
+            
+            <form method="POST" class="user-form" action="{{ url_for('dashboard.dashboard') }}">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="peso" class="form-label">Peso (kg)</label>
+                        <input type="number" id="peso" name="peso" class="form-input" value="{{ user.peso or '' }}" required min="30" max="200" placeholder="70">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="altura" class="form-label">Altura (cm)</label>
+                        <input type="number" id="altura" name="altura" class="form-input" value="{{ user.altura or '' }}" required min="120" max="220" placeholder="170">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objetivo" class="form-label">Objetivo Principal</label>
+                        <select id="objetivo" name="objetivo" class="form-select" required>
+                            <option value="">Selecciona tu objetivo</option>
+                            <option value="perder_peso" {% if user.objetivo == 'perder_peso' %}selected{% endif %}>Perder Peso</option>
+                            <option value="ganar_masa" {% if user.objetivo == 'ganar_masa' %}selected{% endif %}>Ganar Masa Muscular</option>
+                            <option value="mejorar_salud" {% if user.objetivo == 'mejorar_salud' %}selected{% endif %}>Mejorar Salud General</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actividad" class="form-label">Nivel de Actividad</label>
+                        <select id="actividad" name="actividad" class="form-select" required>
+                            <option value="bajo" {% if user.actividad == 'bajo' %}selected{% endif %}>Bajo (sedentario)</option>
+                            <option value="moderado" {% if user.actividad == 'moderado' %}selected{% endif %}>Moderado (2-3 veces/semana)</option>
+                            <option value="alto" {% if user.actividad == 'alto' %}selected{% endif %}>Alto (ejercicio frecuente)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-icon">🔄</span>
+                            Actualizar y Generar Plan
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <h3>🎯 Tu Plan Personalizado</h3>
+                <p>Plan diseñado específicamente para alcanzar tu objetivo: {{ user.objetivo.replace('_', ' ').title() if user.objetivo else 'Bienestar general' }}</p>
+            </div>
+            
+            {% if planes %}
+                {% set plan = planes[0] %}
+                <div class="plan-personalizado">
+                    <div class="plan-card-main">
+                        <div class="plan-image">
+                            {% if plan.imagen %}
+                                <img src="{{ url_for('static', filename='img/' + plan.imagen) }}?v={{ range(1, 1000) | random }}" alt="{{ plan.nombre }}" class="plan-img" loading="lazy">
+                            {% else %}
+                                <div class="plan-img-placeholder">
+                                    <span class="placeholder-icon">🎯</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="plan-content-main">
+                            <div class="plan-header-main">
+                                <h4>{{ plan.nombre }}</h4>
+                                <span class="plan-status">✅ Activo</span>
+                            </div>
+                            
+                            <div class="plan-description">
+                                <p>{{ plan.descripcion or 'Plan personalizado basado en tus datos y objetivos específicos.' }}</p>
+                            </div>
+                            
+                            <div class="plan-metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-icon">🔥</div>
+                                    <div class="metric-info">
+                                        <div class="metric-label">Calorías diarias objetivo</div>
+                                        <div class="metric-value">{{ plan.calorias or 'Calculando...' }} <span class="metric-unit">kcal</span></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon">💪</div>
+                                    <div class="metric-info">
+                                        <div class="metric-label">Proteínas necesarias</div>
+                                        <div class="metric-value">{{ plan.proteinas or 'Calculando...' }} <span class="metric-unit">g/día</span></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon">📊</div>
+                                    <div class="metric-info">
+                                        <div class="metric-label">Tu IMC actual</div>
+                                        <div class="metric-value">
+                                            {% if user.peso and user.altura %}
+                                                {% set imc = user.peso / ((user.altura/100) ** 2) %}
+                                                {{ "%.1f"|format(imc) }}
+                                                <span class="metric-unit">
+                                                    {% if imc < 18.5 %}(Bajo peso)
+                                                    {% elif imc < 25 %}(Normal)
+                                                    {% elif imc < 30 %}(Sobrepeso)
+                                                    {% else %}(Obesidad)
+                                                    {% endif %}
+                                                </span>
+                                            {% else %}
+                                                Faltan datos
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon">🎯</div>
+                                    <div class="metric-info">
+                                        <div class="metric-label">Peso objetivo</div>
+                                        <div class="metric-value">
+                                            {% if user.peso and user.altura %}
+                                                {% set altura_m = user.altura / 100 %}
+                                                {% if user.objetivo == 'perder_peso' %}
+                                                    {{ "%.0f"|format(22.5 * (altura_m ** 2)) }} <span class="metric-unit">kg</span>
+                                                {% elif user.objetivo == 'ganar_masa' %}
+                                                    {{ "%.0f"|format(user.peso + 5) }} <span class="metric-unit">kg</span>
+                                                {% else %}
+                                                    {{ "%.0f"|format(22.5 * (altura_m ** 2)) }} <span class="metric-unit">kg</span>
+                                                {% endif %}
+                                            {% else %}
+                                                Faltan datos
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon">📈</div>
+                                    <div class="metric-info">
+                                        <div class="metric-label">Progreso esperado</div>
+                                        <div class="metric-value">
+                                            {% if user.objetivo == 'perder_peso' %}
+                                                0.5-1 <span class="metric-unit">kg/semana</span>
+                                            {% elif user.objetivo == 'ganar_masa' %}
+                                                0.25-0.5 <span class="metric-unit">kg/semana</span>
+                                            {% else %}
+                                                Mantener <span class="metric-unit">peso</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <div class="metric-icon">⏱️</div>
+                                    <div class="metric-info">
+                                        <div class="metric-label">Tiempo estimado</div>
+                                        <div class="metric-value">
+                                            {% if user.peso and user.altura %}
+                                                {% set altura_m = user.altura / 100 %}
+                                                {% set peso_objetivo = 22.5 * (altura_m ** 2) %}
+                                                {% if user.objetivo == 'perder_peso' and user.peso > peso_objetivo %}
+                                                    {{ "%.0f"|format((user.peso - peso_objetivo) * 2) }} <span class="metric-unit">semanas</span>
+                                                {% elif user.objetivo == 'ganar_masa' %}
+                                                    10-20 <span class="metric-unit">semanas</span>
+                                                {% else %}
+                                                    Constante <span class="metric-unit"></span>
+                                                {% endif %}
+                                            {% else %}
+                                                A definir
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="plan-exercise-section">
+                                <h5>🏃‍♂️ Tu Rutina Personalizada</h5>
+                                <div class="exercise-recommendation">
+                                    <p><strong>{{ plan.rutina or 'Rutina personalizada en desarrollo basada en tu objetivo y nivel de actividad.' }}</strong></p>
+                                    {% if user.objetivo == 'perder_peso' %}
+                                        <div class="exercise-details">
+                                            <h6>📋 Plan Semanal Sugerido:</h6>
+                                            <ul>
+                                                <li><strong>Lunes:</strong> 30 min cardio moderado + ejercicios de fuerza (piernas)</li>
+                                                <li><strong>Martes:</strong> 20 min HIIT + core</li>
+                                                <li><strong>Miércoles:</strong> Descanso activo (caminar 45 min)</li>
+                                                <li><strong>Jueves:</strong> 30 min cardio + ejercicios de fuerza (tren superior)</li>
+                                                <li><strong>Viernes:</strong> 25 min entrenamiento funcional</li>
+                                                <li><strong>Sábado:</strong> Actividad recreativa (baile, natación, etc.)</li>
+                                                <li><strong>Domingo:</strong> Descanso completo o yoga suave</li>
+                                            </ul>
+                                        </div>
+                                    {% elif user.objetivo == 'ganar_masa' %}
+                                        <div class="exercise-details">
+                                            <h6>📋 Plan Semanal Sugerido:</h6>
+                                            <ul>
+                                                <li><strong>Lunes:</strong> Pecho + Tríceps (3-4 ejercicios, 3-4 series)</li>
+                                                <li><strong>Martes:</strong> Espalda + Bíceps (3-4 ejercicios, 3-4 series)</li>
+                                                <li><strong>Miércoles:</strong> Piernas + Glúteos (sentadillas, peso muerto, etc.)</li>
+                                                <li><strong>Jueves:</strong> Hombros + Core (press militar, elevaciones laterales)</li>
+                                                <li><strong>Viernes:</strong> Descanso o cardio ligero (15-20 min)</li>
+                                                <li><strong>Sábado:</strong> Entrenamiento full-body o repetir grupo muscular débil</li>
+                                                <li><strong>Domingo:</strong> Descanso completo</li>
+                                            </ul>
+                                        </div>
+                                    {% else %}
+                                        <div class="exercise-details">
+                                            <h6>📋 Plan Semanal Equilibrado:</h6>
+                                            <ul>
+                                                <li><strong>Lunes:</strong> 30 min ejercicio cardiovascular</li>
+                                                <li><strong>Martes:</strong> Entrenamiento de fuerza (tren superior)</li>
+                                                <li><strong>Miércoles:</strong> Yoga o actividad de flexibilidad</li>
+                                                <li><strong>Jueves:</strong> Entrenamiento de fuerza (tren inferior)</li>
+                                                <li><strong>Viernes:</strong> Cardio moderado + core</li>
+                                                <li><strong>Sábado:</strong> Actividad recreativa al aire libre</li>
+                                                <li><strong>Domingo:</strong> Descanso o caminar suave</li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="plan-tips">
+                                <h5>💡 Consejos Personalizados para Ti</h5>
+                                <div class="tips-grid">
+                                    {% if user.objetivo == 'perder_peso' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🥗</span>
+                                            <span class="tip-text">Mantén un déficit calórico de 300-500 kcal diarias. Tu meta: {{ plan.calorias or 'Calcula primero' }} kcal/día</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">💧</span>
+                                            <span class="tip-text">Bebe al menos 2-3 litros de agua al día (ayuda a controlar el hambre)</span>
+                                        </div>
+                                        {% if user.actividad == 'bajo' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🚶‍♂️</span>
+                                            <span class="tip-text">Empieza gradualmente: 10-15 min de caminata diaria e incrementa cada semana</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">📱</span>
+                                            <span class="tip-text">Cuenta tus pasos: objetivo inicial 5,000-7,000 pasos diarios</span>
+                                        </div>
+                                        {% elif user.actividad == 'alto' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🔥</span>
+                                            <span class="tip-text">Varía intensidades: combina HIIT, cardio moderado y entrenamientos de fuerza</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">⚡</span>
+                                            <span class="tip-text">Periodización: semanas intensas alternadas con semanas de recuperación</span>
+                                        </div>
+                                        {% else %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🏃‍♂️</span>
+                                            <span class="tip-text">Combina cardio con entrenamiento de fuerza para preservar masa muscular</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">⏰</span>
+                                            <span class="tip-text">Come cada 3-4 horas para mantener estable tu metabolismo</span>
+                                        </div>
+                                        {% endif %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">�</span>
+                                            <span class="tip-text">Lleva un registro de tus comidas y peso semanal</span>
+                                        </div>
+                                    {% elif user.objetivo == 'ganar_masa' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🍖</span>
+                                            <span class="tip-text">Consume {{ plan.proteinas or 'X' }}g de proteína diaria distribuida en todas las comidas</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">💪</span>
+                                            <span class="tip-text">Enfócate en ejercicios compuestos: sentadillas, peso muerto, press de banca</span>
+                                        </div>
+                                        {% if user.actividad == 'bajo' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🏋️‍♂️</span>
+                                            <span class="tip-text">Comienza con peso corporal y progresa gradualmente a pesas libres</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🍽️</span>
+                                            <span class="tip-text">Haz 5-6 comidas pequeñas al día para maximizar la síntesis proteica</span>
+                                        </div>
+                                        {% elif user.actividad == 'alto' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">⚡</span>
+                                            <span class="tip-text">Periodiza tu entrenamiento: fases de volumen, intensidad y deload</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🎯</span>
+                                            <span class="tip-text">Varia rep ranges: 6-8, 8-12, 12-15 para estímulos diferentes</span>
+                                        </div>
+                                        {% else %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">📈</span>
+                                            <span class="tip-text">Aumenta progresivamente el peso en tus ejercicios cada semana</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">😴</span>
+                                            <span class="tip-text">Duerme 7-9 horas para optimizar la recuperación y síntesis proteica</span>
+                                        </div>
+                                        {% endif %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🥛</span>
+                                            <span class="tip-text">Consume un snack post-entrenamiento rico en proteínas dentro de 30 min</span>
+                                        </div>
+                                    {% else %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🌱</span>
+                                            <span class="tip-text">Mantén una dieta balanceada: 50% carbohidratos, 30% grasas saludables, 20% proteínas</span>
+                                        </div>
+                                        {% if user.actividad == 'bajo' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🚶‍♀️</span>
+                                            <span class="tip-text">Camina al menos 30 minutos diarios, puedes dividirlo en bloques de 10 min</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🧘‍♂️</span>
+                                            <span class="tip-text">Practica estiramientos y respiración profunda 10 min diarios</span>
+                                        </div>
+                                        {% elif user.actividad == 'alto' %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🏃‍♀️</span>
+                                            <span class="tip-text">Varía actividades: cardio, fuerza, flexibilidad y deportes recreativos</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">⚖️</span>
+                                            <span class="tip-text">Balancea intensidad con recuperación para evitar sobreentrenamiento</span>
+                                        </div>
+                                        {% else %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🚶‍♂️</span>
+                                            <span class="tip-text">Realiza al menos 150 min de ejercicio moderado por semana</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🧘‍♀️</span>
+                                            <span class="tip-text">Incluye ejercicios de flexibilidad y técnicas de relajación</span>
+                                        </div>
+                                        {% endif %}
+                                        <div class="tip-item">
+                                            <span class="tip-icon">🥤</span>
+                                            <span class="tip-text">Limita el consumo de bebidas azucaradas y alcohol</span>
+                                        </div>
+                                        <div class="tip-item">
+                                            <span class="tip-icon">📅</span>
+                                            <span class="tip-text">Establece rutinas consistentes de alimentación y ejercicio</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">🎯</div>
+                    <h4>No tienes un plan personalizado aún</h4>
+                    <p>Completa tus datos personales arriba para generar tu primer plan de salud personalizado</p>
+                    <div class="empty-action">
+                        <span class="empty-hint">👆 Usa el formulario de arriba para comenzar</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="section-card">
+            <div class="section-header">
+                <h3>🎨 Talleres Recomendados</h3>
+                <p>Actividades grupales personalizadas para tu objetivo: <strong>{{ user.objetivo.replace('_', ' ').title() if user.objetivo else 'Sin definir' }}</strong> y nivel: <strong>{{ user.actividad.title() if user.actividad else 'Sin definir' }}</strong></p>
+                <a href="{{ url_for('dashboard.guia_talleres') }}" class="nav-link" style="color: #667eea; text-decoration: none; font-size: 0.9rem;">
+                    📚 ¿Cómo funcionan los talleres?
+                </a>
+            </div>
+            
+            {% if talleres %}
+                <div class="workshops-grid">
+                    {% for taller in talleres %}
+                        <div class="workshop-card">
+                            <div class="workshop-header">
+                                <h4>{{ taller.nombre }}</h4>
+                                <div class="workshop-cupos">
+                                    <span class="cupos-icon">👥</span>
+                                    <span class="cupos-text {% if taller.cupos_disponibles <= 3 %}cupos-warning{% elif taller.cupos_disponibles == 0 %}cupos-full{% endif %}">
+                                        {{ taller.cupos_disponibles }} cupos disponibles
+                                        {% if taller.cupos_disponibles == 0 %}
+                                            (Completo)
+                                        {% elif taller.cupos_disponibles <= 3 %}
+                                            (¡Últimos cupos!)
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                {% if taller.dias_restantes <= 3 %}
+                                <div class="workshop-urgency">
+                                    <span class="urgency-icon">⚡</span>
+                                    <span class="urgency-text">
+                                        {% if taller.dias_restantes == 0 %}
+                                            ¡Hoy!
+                                        {% elif taller.dias_restantes == 1 %}
+                                            ¡Mañana!
+                                        {% else %}
+                                            ¡En {{ taller.dias_restantes }} días!
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="workshop-content">
+                                <p class="workshop-description">{{ taller.descripcion or 'Descripción no disponible' }}</p>
+                                <div class="workshop-details">
+                                    <div class="detail-item">
+                                        <span class="detail-text">{{ taller.fecha.strftime('%d/%m/%Y') }}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">�</span>
+                                        <span class="detail-text">{{ taller.dias_semana }}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🎯</span>
+                                        <span class="detail-text">{{ taller.objetivo.replace('_', ' ').title() if taller.objetivo else 'Objetivo general' }}</span>
+                                    </div>
+                                    {% if taller.nivel_actividad %}
+                                    <div class="detail-item">
+                                        <span class="detail-icon">⚡</span>
+                                        <span class="detail-text">Nivel: {{ taller.nivel_actividad.title() }}</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="workshop-actions">
+                                <a href="{{ url_for('dashboard.ver_taller', id=taller.id) }}" class="btn btn-secondary">
+                                    {% if taller.cupos_disponibles > 0 %}
+                                        Más información
+                                    {% else %}
+                                        Ver detalles
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">🎨</div>
+                    <h4>No hay talleres disponibles</h4>
+                    <p>Pronto tendremos talleres recomendados según tu perfil</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+</html>

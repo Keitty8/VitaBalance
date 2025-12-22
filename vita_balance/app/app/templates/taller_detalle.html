@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ taller.nombre }} - VitaBalance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+<body>
+    <header class="user-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance</h1>
+            <nav class="user-nav">
+                <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Mi Panel</a>
+                <a href="{{ url_for('dashboard.mis_talleres') }}" class="nav-link">Mis Talleres</a>
+                <div class="user-info">
+                    <span class="user-avatar">{{ user.username[0].upper() }}</span>
+                    <span class="user-name">{{ user.username }}</span>
+                </div>
+                {% if user.role == 'admin' %}
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link admin-link">Panel Admin</a>
+                {% endif %}
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout-btn">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="user-main">
+        <div class="breadcrumb">
+            <a href="{{ url_for('dashboard.dashboard') }}">Mi Panel</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">{{ taller.nombre }}</span>
+        </div>
+
+        <div class="workshop-hero">
+            <div class="workshop-hero-content">
+                <div class="workshop-badge">
+                    <span class="badge badge-{{ 'success' if taller.objetivo == 'mejorar_salud' else ('warning' if taller.objetivo == 'perder_peso' else 'info') }}">
+                        {{ taller.objetivo.replace('_', ' ').title() }}
+                    </span>
+                </div>
+                <h1 class="workshop-title">{{ taller.nombre }}</h1>
+                <p class="workshop-subtitle">{{ taller.descripcion or 'Únete a esta experiencia transformadora' }}</p>
+                
+                <div class="workshop-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">👥</span>
+                        <div class="stat-info">
+                            <div class="stat-label">Cupos disponibles</div>
+                            <div class="stat-value">{{ taller.cupos_disponibles }}/{{ taller.cupos }}</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🕒</span>
+                        <div class="stat-info">
+                            <div class="stat-label">Días de la semana</div>
+                            <div class="stat-value">{{ taller.dias_semana }}</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <div class="stat-info">
+                            <div class="stat-label">Enfoque</div>
+                            <div class="stat-value">{{ taller.objetivo.replace('_', ' ').title() }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="workshop-content-section">
+            <div class="content-grid">
+                <div class="workshop-info">
+                    <div class="section-card">
+                        <h3>📋 Descripción del Taller</h3>
+                        <div class="workshop-description">
+                            {{ taller.descripcion or 'Este taller está diseñado para ayudarte a alcanzar tus objetivos de bienestar de manera práctica y efectiva.' }}
+                        </div>
+                        
+                        <div class="workshop-details-expanded">
+                            <h4>🎯 ¿Qué incluye este taller?</h4>
+                            <ul class="benefits-list">
+                                {% if taller.objetivo == 'perder_peso' %}
+                                <li>Rutinas de ejercicio cardiovascular efectivas</li>
+                                <li>Consejos nutricionales para acelerar la pérdida de peso</li>
+                                <li>Técnicas de motivación y seguimiento de progreso</li>
+                                <li>Sesiones grupales de apoyo</li>
+                                {% elif taller.objetivo == 'ganar_masa' %}
+                                <li>Entrenamientos de fuerza progresivos</li>
+                                <li>Planificación nutricional para ganancia muscular</li>
+                                <li>Técnicas de recuperación muscular</li>
+                                <li>Seguimiento personalizado de resultados</li>
+                                {% else %}
+                                <li>Actividades de bienestar integral</li>
+                                <li>Técnicas de relajación y manejo del estrés</li>
+                                <li>Consejos para un estilo de vida saludable</li>
+                                <li>Comunidad de apoyo y motivación</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        <div class="workshop-schedule">
+                            <h4>📅 Información de Días</h4>
+                            <div class="schedule-info">
+                                <div class="schedule-item">
+                                    <span class="schedule-label">Días:</span>
+                                    <span class="schedule-value">{{ taller.dias_semana }}</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-label">Duración estimada:</span>
+                                    <span class="schedule-value">1.5 horas por sesión</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workshop-actions-panel">
+                    <div class="section-card">
+                        <h3>🚀 Únete al Taller</h3>
+                        
+                        {% if esta_inscrito %}
+                        <div class="status-message success">
+                            <span class="status-icon">✅</span>
+                            <div class="status-content">
+                                <h4>¡Ya estás inscrito!</h4>
+                                <p>Tienes un lugar reservado en este taller</p>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <a href="{{ url_for('dashboard.contenido_taller', id=taller.id) }}" class="btn btn-primary">
+                                <span class="btn-icon">🎯</span>
+                                Acceder al Contenido
+                            </a>
+                            <form method="POST" action="{{ url_for('dashboard.desinscribirse_taller', id=taller.id) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('¿Estás seguro de que quieres desinscribirte?')">
+                                    ❌ Desinscribirme
+                                </button>
+                            </form>
+                        </div>
+                        
+                        {% elif puede_inscribirse %}
+                        <div class="status-message info">
+                            <span class="status-icon">ℹ️</span>
+                            <div class="status-content">
+                                <h4>Cupos disponibles</h4>
+                                <p>Quedan {{ taller.cupos_disponibles }} lugares de {{ taller.cupos }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <form method="POST" action="{{ url_for('dashboard.inscribirse_taller', id=taller.id) }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="btn-icon">🎯</span>
+                                    Inscribirme al Taller
+                                </button>
+                            </form>
+                        </div>
+                        
+                        {% else %}
+                        <div class="status-message warning">
+                            <span class="status-icon">⚠️</span>
+                            <div class="status-content">
+                                <h4>Taller completo</h4>
+                                <p>Este taller ya no tiene cupos disponibles</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="additional-info">
+                            <h4>💡 Información importante</h4>
+                            <ul class="info-list">
+                                <li>La inscripción es gratuita</li>
+                                <li>Puedes cancelar tu inscripción en cualquier momento</li>
+                                <li>Se requiere asistencia regular para obtener mejores resultados</li>
+                                <li>Recibirás recordatorios por email</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <h3>🔗 Talleres Relacionados</h3>
+                        <div class="related-workshops">
+                            <p class="related-message">Explora otros talleres que podrían interesarte</p>
+                            <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-outline">Ver Más Talleres</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    <span class="flash-icon">
+                        {% if category == 'success' %}✅
+                        {% elif category == 'warning' %}⚠️
+                        {% elif category == 'error' %}❌
+                        {% else %}ℹ️{% endif %}
+                    </span>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+    </main>
+
+    <script>
+        setTimeout(function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(message => {
+                message.style.transition = 'opacity 0.5s ease';
+                message.style.opacity = '0';
+                setTimeout(() => message.remove(), 500);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>

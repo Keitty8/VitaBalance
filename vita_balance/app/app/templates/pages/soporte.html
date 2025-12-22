@@ -1,0 +1,181 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Soporte - VitaBalance{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📞 Centro de Soporte</h1>
+    <p class="page-subtitle">Estamos aquí para ayudarte. Elige la opción que mejor se adapte a tu necesidad</p>
+</div>
+
+<div class="content-container">
+    <div class="page-section">
+        <h2>🚀 Opciones de Soporte</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">💬</div>
+                <h3>Chat en Vivo</h3>
+                <p>Respuesta inmediata para consultas urgentes</p>
+                <p><strong>Disponible:</strong> 24/7</p>
+                <p><strong>Tiempo de respuesta:</strong> 2-5 minutos</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📧</div>
+                <h3>Email</h3>
+                <p>Para consultas detalladas y no urgentes</p>
+                <p><strong>Email:</strong> soporte@vitabalance.com</p>
+                <p><strong>Tiempo de respuesta:</strong> 2-6 horas</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📱</div>
+                <h3>WhatsApp</h3>
+                <p>Soporte personalizado por mensaje</p>
+                <p><strong>Número:</strong> +1 (555) 123-4567</p>
+                <p><strong>Horario:</strong> Lun-Dom 8AM-10PM</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📞</div>
+                <h3>Teléfono</h3>
+                <p>Para casos complejos o urgentes</p>
+                <p><strong>Número:</strong> +1 (555) 123-4567</p>
+                <p><strong>Horario:</strong> Lun-Vie 9AM-6PM</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📝 Envíanos un Mensaje</h2>
+        <form class="contact-form" action="#" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="categoria">Categoría de Consulta</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="tecnico">🔧 Soporte Técnico</option>
+                    <option value="planes">🏋️‍♀️ Planes y Ejercicios</option>
+                    <option value="facturacion">💳 Facturación y Pagos</option>
+                    <option value="cuenta">👤 Problemas de Cuenta</option>
+                    <option value="comunidad">👥 Comunidad y Talleres</option>
+                    <option value="sugerencia">💡 Sugerencias</option>
+                    <option value="otro">❓ Otro</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="prioridad">Prioridad</label>
+                <select id="prioridad" name="prioridad" required>
+                    <option value="">Selecciona prioridad</option>
+                    <option value="baja">🟢 Baja - No es urgente</option>
+                    <option value="media">🟡 Media - Necesito ayuda pronto</option>
+                    <option value="alta">🔴 Alta - Es urgente</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="asunto">Asunto</label>
+                <input type="text" id="asunto" name="asunto" required placeholder="Describe brevemente tu consulta">
+            </div>
+            
+            <div class="form-group">
+                <label for="mensaje">Mensaje Detallado</label>
+                <textarea id="mensaje" name="mensaje" required placeholder="Describe tu consulta o problema con el mayor detalle posible. Incluye pasos que hayas intentado o mensajes de error que hayas visto."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">📤 Enviar Consulta</button>
+        </form>
+    </div>
+
+    <div class="page-section">
+        <h2>🔧 Problemas Comunes</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🔐</div>
+                <h3>No puedo iniciar sesión</h3>
+                <p>Verifica tu email y contraseña. Si olvidaste tu contraseña, usa la opción "Recuperar contraseña" en la página de login.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📱</div>
+                <h3>La app no se sincroniza</h3>
+                <p>Asegúrate de tener conexión a internet estable. Cierra y abre la app. Si persiste, reinstala la aplicación.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💳</div>
+                <h3>Problemas de pago</h3>
+                <p>Verifica que tu tarjeta esté activa y tenga fondos suficientes. Contacta a tu banco si el problema persiste.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🎯</div>
+                <h3>Mi plan no se actualiza</h3>
+                <p>Los planes se actualizan cada domingo. Si cambiaste tus objetivos recientemente, espera hasta el próximo ciclo.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📚 Recursos Útiles</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🎥</div>
+                <h3>Tutoriales en Video</h3>
+                <p>Guías paso a paso para usar todas las funciones</p>
+                <a href="#" class="btn-contact">Ver Tutoriales</a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📖</div>
+                <h3>Manual de Usuario</h3>
+                <p>Documentación completa de la plataforma</p>
+                <a href="#" class="btn-contact">Descargar PDF</a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">❓</div>
+                <h3>Preguntas Frecuentes</h3>
+                <p>Respuestas a las dudas más comunes</p>
+                <a href="{{ url_for('pages.faq') }}" class="btn-contact">Ver FAQ</a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">👥</div>
+                <h3>Foro de la Comunidad</h3>
+                <p>Pregunta a otros usuarios y expertos</p>
+                <a href="#" class="btn-contact">Ir al Foro</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>⭐ Nuestro Compromiso</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🎯</div>
+                <h3>Tiempo de Respuesta Garantizado</h3>
+                <ul>
+                    <li><strong>Chat en vivo:</strong> Menos de 5 minutos</li>
+                    <li><strong>Email:</strong> Máximo 6 horas en días laborables</li>
+                    <li><strong>WhatsApp:</strong> Menos de 30 minutos</li>
+                    <li><strong>Teléfono:</strong> Sin esperas, conexión inmediata</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-card-icon">🏆</div>
+                <h3>Satisfacción Garantizada</h3>
+                <p>Si no quedas satisfecho con nuestro soporte, trabajaremos contigo hasta resolver completamente tu consulta. Tu éxito es nuestro éxito.</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-card-icon">🌟</div>
+                <h3>Equipo Especializado</h3>
+                <p>Nuestro equipo incluye expertos en fitness, nutrición, tecnología y atención al cliente, todos certificados y en constante capacitación.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

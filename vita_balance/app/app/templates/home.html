@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>VitaBalance - Bienestar Integral</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/services-improved.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance</h1>
+            <nav class="main-nav">
+                <a href="#ofrecemos" class="nav-link">Servicios</a>
+                <a href="#inicio-cambio" class="nav-link">Registro</a>
+                <a href="{{ url_for('auth.login') }}" class="nav-link login-btn">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Descubre cómo transformar tu salud con VitaBalance</h1>
+                <p>Planes personalizados y talleres creativos para tu bienestar integral.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Usuarios activos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">Planes disponibles</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Satisfacción</span>
+                    </div>
+                </div>
+                <a href="#inicio-cambio" class="btn-principal">
+                    <span class="btn-icon">🚀</span>
+                    Inicia tu cambio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="ofrecemos" class="ofrecemos">
+        <div class="section-header">
+            <h2>¿Qué ofrecemos?</h2>
+            <p class="section-subtitle">Descubre todas las herramientas que tenemos para tu transformación</p>
+        </div>
+        <div class="cards">
+            <div class="card card-planes">
+                <div class="card-icon">
+                    <div class="icon-circle planes-icon">
+                        <span class="icon">💪</span>
+                    </div>
+                </div>
+                <h3>Planes de Salud</h3>
+                <p>Programas adaptados a tus objetivos personales con seguimiento profesional.</p>
+                <div class="card-features">
+                    <div class="feature">✓ Rutinas personalizadas</div>
+                    <div class="feature">✓ Seguimiento nutricional</div>
+                    <div class="feature">✓ Progreso medible</div>
+                </div>
+                <div class="card-overlay"></div>
+            </div>
+            <div class="card card-talleres">
+                <div class="card-icon">
+                    <div class="icon-circle talleres-icon">
+                        <span class="icon">🎯</span>
+                    </div>
+                </div>
+                <h3>Talleres</h3>
+                <p>Actividades prácticas para nutrir mente y cuerpo con expertos certificados.</p>
+                <div class="card-features">
+                    <div class="feature">✓ Sesiones en vivo</div>
+                    <div class="feature">✓ Material descargable</div>
+                    <div class="feature">✓ Certificados</div>
+                </div>
+                <div class="card-overlay"></div>
+            </div>
+            <div class="card card-comunidad">
+                <div class="card-icon">
+                    <div class="icon-circle comunidad-icon">
+                        <span class="icon">👥</span>
+                    </div>
+                </div>
+                <h3>Comunidad</h3>
+                <p>Conéctate con otros y comparte tu progreso en un ambiente motivador.</p>
+                <div class="card-features">
+                    <div class="feature">✓ Foros de discusión</div>
+                    <div class="feature">✓ Retos grupales</div>
+                    <div class="feature">✓ Apoyo 24/7</div>
+                </div>
+                <div class="card-overlay"></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="planes-destacados">
+        <div class="section-header">
+            <h2>Planes Más Populares</h2>
+            <p class="section-subtitle">Descubre los programas que más resultados han dado a nuestros usuarios</p>
+        </div>
+        <div class="planes-grid">
+            <div class="plan-card">
+                <div class="plan-image">
+                    <img src="{{ url_for('static', filename='img/plan_basico.png') }}" alt="Plan Básico">
+                    <div class="plan-badge">🌟 Popular</div>
+                </div>
+                <div class="plan-content">
+                    <h3>Plan Básico</h3>
+                    <p>Perfecto para empezar tu transformación con rutinas simples y efectivas.</p>
+                    <div class="plan-stats">
+                        <span class="stat">⏱️ 4 semanas</span>
+                        <span class="stat">📊 Nivel: Principiante</span>
+                    </div>
+                </div>
+            </div>
+            <div class="plan-card">
+                <div class="plan-image">
+                    <img src="{{ url_for('static', filename='img/express_perder.png') }}" alt="Express Perder">
+                    <div class="plan-badge">🔥 Trending</div>
+                </div>
+                <div class="plan-content">
+                    <h3>Express Perder</h3>
+                    <p>Programa intensivo para perder peso de forma rápida y saludable.</p>
+                    <div class="plan-stats">
+                        <span class="stat">⏱️ 6 semanas</span>
+                        <span class="stat">📊 Nivel: Intermedio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="plan-card">
+                <div class="plan-image">
+                    <img src="{{ url_for('static', filename='img/hipertrofia.png') }}" alt="Hipertrofia">
+                    <div class="plan-badge">💪 Intenso</div>
+                </div>
+                <div class="plan-content">
+                    <h3>Hipertrofia</h3>
+                    <p>Desarrolla masa muscular con entrenamientos especializados y nutrición.</p>
+                    <div class="plan-stats">
+                        <span class="stat">⏱️ 8 semanas</span>
+                        <span class="stat">📊 Nivel: Avanzado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonios">
+        <div class="section-header">
+            <h2>Lo que dicen nuestros usuarios</h2>
+            <p class="section-subtitle">Historias reales de transformación</p>
+        </div>
+        <div class="testimonios-grid">
+            <div class="testimonio-card">
+                <div class="testimonio-content">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"VitaBalance cambió mi vida completamente. Perdí 15kg en 3 meses y me siento más energética que nunca."</p>
+                    <div class="testimonio-author">
+                        <div class="author-avatar">👩‍💼</div>
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <span>Ejecutiva, 32 años</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonio-card">
+                <div class="testimonio-content">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Los talleres de sincronización emocional me ayudaron a manejar el estrés. Recomiendo 100% la plataforma."</p>
+                    <div class="testimonio-author">
+                        <div class="author-avatar">👨‍💻</div>
+                        <div class="author-info">
+                            <h4>Carlos Rodríguez</h4>
+                            <span>Desarrollador, 28 años</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonio-card">
+                <div class="testimonio-content">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"La comunidad es increíble. Encontré motivación y apoyo constante para alcanzar mis objetivos fitness."</p>
+                    <div class="testimonio-author">
+                        <div class="author-avatar">👩‍🎓</div>
+                        <div class="author-info">
+                            <h4>Ana López</h4>
+                            <span>Estudiante, 25 años</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="inicio-cambio" class="formulario-seccion">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>🚀 Comienza tu cambio con VitaBalance</h2>
+                <p>Únete a miles de personas que ya están transformando su vida</p>
+            </div>
+            <div class="form-content">
+                <div class="form-benefits">
+                    <h3>✨ Al registrarte obtendrás:</h3>
+                    <div class="benefits-list">
+                        <div class="benefit">
+                            <span class="benefit-icon">🎯</span>
+                            <span class="benefit-text">Plan personalizado según tus objetivos</span>
+                        </div>
+                        <div class="benefit">
+                            <span class="benefit-icon">📱</span>
+                            <span class="benefit-text">Acceso a la app móvil</span>
+                        </div>
+                        <div class="benefit">
+                            <span class="benefit-icon">👥</span>
+                            <span class="benefit-text">Comunidad de apoyo</span>
+                        </div>
+                        <div class="benefit">
+                            <span class="benefit-icon">📊</span>
+                            <span class="benefit-text">Seguimiento de progreso</span>
+                        </div>
+                        <div class="benefit">
+                            <span class="benefit-icon">🏆</span>
+                            <span class="benefit-text">Certificados de logros</span>
+                        </div>
+                    </div>
+                </div>
+                <form action="{{ url_for('auth.register') }}" method="POST" class="formulario">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username">👤 Nombre de usuario:</label>
+                            <input type="text" id="username" name="username" required placeholder="Ingresa tu nombre de usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">📧 Correo electrónico:</label>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">🔒 Contraseña:</label>
+                        <input type="password" id="password" name="password" required placeholder="Mínimo 6 caracteres">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="genero">⚧ Género:</label>
+                            <select id="genero" name="genero" required>
+                                <option value="">Selecciona tu género</option>
+                                <option value="femenino">👩 Femenino</option>
+                                <option value="masculino">👨 Masculino</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="objetivo">🎯 Objetivo principal:</label>
+                            <select id="objetivo" name="objetivo" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="perder_peso">⚖️ Perder peso</option>
+                                <option value="mejorar_salud">❤️ Mejorar salud</option>
+                                <option value="ganar_masa">💪 Ganar músculo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="peso">⚖️ Peso actual (kg):</label>
+                            <input type="number" id="peso" name="peso" required min="30" max="200" placeholder="ej: 70">
+                        </div>
+                        <div class="form-group">
+                            <label for="altura">📏 Altura (cm):</label>
+                            <input type="number" id="altura" name="altura" required min="120" max="220" placeholder="ej: 170">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actividad">🏃‍♀️ Nivel de actividad física:</label>
+                        <select id="actividad" name="actividad" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="bajo">🛋️ Bajo (sedentario)</option>
+                            <option value="moderado">🚶‍♀️ Moderado (ejercicio 2-3 veces/semana)</option>
+                            <option value="alto">🏃‍♀️ Alto (ejercicio frecuente o intenso)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-principal btn-register">
+                        <span class="btn-icon">🚀</span>
+                        ¡Comenzar mi transformación!
+                    </button>
+                </form>
+            </div>
+            
+            <p class="login-link">
+                ¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">🔑 Inicia sesión aquí</a>
+            </p>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>VitaBalance</h3>
+                <p>Tu compañero en el camino hacia una vida más saludable y equilibrada.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul class="footer-links">
+                    <li><a href="#ofrecemos">🏋️‍♀️ Planes de Salud</a></li>
+                    <li><a href="#ofrecemos">🎯 Talleres</a></li>
+                    <li><a href="#ofrecemos">👥 Comunidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Recursos</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('pages.blog') }}">📚 Blog</a></li>
+                    <li><a href="{{ url_for('pages.faq') }}">❓ FAQ</a></li>
+                    <li><a href="{{ url_for('pages.soporte') }}">📞 Soporte</a></li>
+                    <li><a href="{{ url_for('pages.terminos') }}">📋 Términos</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Empresa</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('pages.sobre_nosotros') }}">🏢 Sobre Nosotros</a></li>
+                    <li><a href="{{ url_for('pages.privacidad') }}">🔒 Privacidad</a></li>
+                    <li><a href="{{ url_for('pages.contacto') }}">📧 Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto Directo</h4>
+                <div class="contact-info">
+                    <p><a href="mailto:info@vitabalance.com">📧 info@vitabalance.com</a></p>
+                    <p><a href="tel:+15551234567">📱 +1 (555) 123-4567</a></p>
+                    <p>📍 Ciudad, País</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 VitaBalance. Todos los derechos reservados. ❤️ Hecho con pasión por tu bienestar.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts del Chatbot -->
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Plan - VitaBalance Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard Admin</a>
+                <a href="{{ url_for('planes.index') }}" class="nav-link">Ver Planes</a>
+                <a href="{{ url_for('talleres.index') }}" class="nav-link">Talleres</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Editar Plan de Salud</h2>
+                <p>Modifica la información del plan "{{ plan.nombre }}"</p>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre del Plan</label>
+                        <input type="text" class="form-input" name="nombre" id="nombre" value="{{ plan.nombre }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipo" class="form-label">Tipo de Plan</label>
+                        <select name="tipo" id="tipo" class="form-select">
+                            <option value="perder_peso" {% if plan.tipo == 'perder_peso' %}selected{% endif %}>Perder Peso</option>
+                            <option value="ganar_masa" {% if plan.tipo == 'ganar_masa' %}selected{% endif %}>Ganar Masa Muscular</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="imagen" class="form-label">Imagen del Plan</label>
+                        <select name="imagen" id="imagen" class="form-select">
+                            <option value="">Sin imagen</option>
+                            <option value="plan_basico.png" {% if plan.imagen == 'plan_basico.png' %}selected{% endif %}>Plan Básico (plan_basico.png)</option>
+                            <option value="hiit_power.png" {% if plan.imagen == 'hiit_power.png' %}selected{% endif %}>HIIT Power (hiit_power.png)</option>
+                            <option value="express_perder.png" {% if plan.imagen == 'express_perder.png' %}selected{% endif %}>Express Perder (express_perder.png)</option>
+                            <option value="hipertrofia.png" {% if plan.imagen == 'hipertrofia.png' %}selected{% endif %}>Hipertrofia (hipertrofia.png)</option>
+                            <option value="volumen_eficiente.png" {% if plan.imagen == 'volumen_eficiente.png' %}selected{% endif %}>Volumen Eficiente (volumen_eficiente.png)</option>
+                            <option value="avanzado_masa.png" {% if plan.imagen == 'avanzado_masa.png' %}selected{% endif %}>Avanzado Masa (avanzado_masa.png)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea name="descripcion" id="descripcion" class="form-textarea" rows="3">{{ plan.descripcion }}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="calorias" class="form-label">Calorías Diarias</label>
+                        <input type="number" class="form-input" name="calorias" id="calorias" value="{{ plan.calorias }}" placeholder="2000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="proteinas" class="form-label">Proteínas (gramos)</label>
+                        <input type="number" class="form-input" name="proteinas" id="proteinas" value="{{ plan.proteinas }}" placeholder="150">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="rutina" class="form-label">Rutina de Ejercicios</label>
+                        <textarea name="rutina" id="rutina" class="form-textarea" rows="4">{{ plan.rutina }}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="confirmarEliminar()">
+                        🗑️ Eliminar Plan
+                    </button>
+                    <div style="flex: 1;"></div>
+                    <a href="{{ url_for('planes.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Actualizar Plan</button>
+                </div>
+            </form>
+            
+            <form id="formEliminar" action="{{ url_for('planes.eliminar', id=plan.id) }}" method="post" style="display: none;">
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function confirmarEliminar() {
+            if (confirm('⚠️ ¿Estás seguro de que quieres eliminar este plan?\n\nEsta acción no se puede deshacer y se perderán todos los datos asociados.')) {
+                document.getElementById('formEliminar').submit();
+            }
+        }
+    </script>
+
+</body>
+</html>

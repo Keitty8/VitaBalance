@@ -1,0 +1,190 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Blog - VitaBalance{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📚 Blog de VitaBalance</h1>
+    <p class="page-subtitle">Descubre consejos, noticias y tendencias sobre salud, bienestar y vida saludable</p>
+</div>
+
+<div class="content-container">
+    <div class="page-section">
+        <h2>🗂️ Categorías</h2>
+        <div class="category-grid">
+            <a href="#fitness" class="category-card">
+                <span class="category-icon">🏋️‍♀️</span>
+                <span class="category-name">Fitness</span>
+            </a>
+            <a href="#nutricion" class="category-card">
+                <span class="category-icon">🥗</span>
+                <span class="category-name">Nutrición</span>
+            </a>
+            <a href="#bienestar" class="category-card">
+                <span class="category-icon">🧘‍♀️</span>
+                <span class="category-name">Bienestar Mental</span>
+            </a>
+            <a href="#recetas" class="category-card">
+                <span class="category-icon">👩‍🍳</span>
+                <span class="category-name">Recetas</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📝 Artículos Recientes</h2>
+        <div class="blog-grid">
+            <article class="blog-card" id="fitness">
+                <div class="blog-card-image">
+                    <div class="blog-placeholder-image">🏋️‍♀️</div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-header">
+                        <h3>10 Ejercicios que Puedes Hacer en Casa</h3>
+                        <div class="blog-card-meta">📅 30 de Junio, 2025 • 👤 Dr. María Fitness</div>
+                    </div>
+                    <p>Descubre rutinas efectivas que no requieren equipo especializado. Desde ejercicios cardiovasculares hasta fortalecimiento muscular, te mostramos cómo mantener tu forma física desde la comodidad de tu hogar.</p>
+                    <div class="blog-card-tags">
+                        <span class="blog-tag">Ejercicio</span>
+                        <span class="blog-tag">Casa</span>
+                        <span class="blog-tag">Principiantes</span>
+                    </div>
+                    <a href="#" class="read-more-btn">Leer más →</a>
+                </div>
+            </article>
+
+            <article class="blog-card" id="nutricion">
+                <div class="blog-card-image">
+                    <div class="blog-placeholder-image">🥗</div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-header">
+                        <h3>Alimentación Consciente: Tu Guía Completa</h3>
+                        <div class="blog-card-meta">📅 28 de Junio, 2025 • 👤 Lic. Ana Nutrición</div>
+                    </div>
+                    <p>Aprende a desarrollar una relación saludable con la comida. La alimentación consciente no solo mejora tu salud física, sino también tu bienestar mental y emocional.</p>
+                    <div class="blog-card-tags">
+                        <span class="blog-tag">Nutrición</span>
+                        <span class="blog-tag">Mindfulness</span>
+                        <span class="blog-tag">Salud Mental</span>
+                    </div>
+                    <a href="#" class="read-more-btn">Leer más →</a>
+                </div>
+            </article>
+
+            <article class="blog-card" id="bienestar">
+                <div class="blog-card-image">
+                    <div class="blog-placeholder-image">🧘‍♀️</div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-header">
+                        <h3>Meditación para Reducir el Estrés</h3>
+                        <div class="blog-card-meta">📅 25 de Junio, 2025 • 👤 Mtro. Carlos Zen</div>
+                    </div>
+                    <p>Técnicas simples pero efectivas para incorporar la meditación en tu rutina diaria. Descubre cómo 10 minutos al día pueden transformar tu manejo del estrés y ansiedad.</p>
+                    <div class="blog-card-tags">
+                        <span class="blog-tag">Meditación</span>
+                        <span class="blog-tag">Estrés</span>
+                        <span class="blog-tag">Mindfulness</span>
+                    </div>
+                    <a href="#" class="read-more-btn">Leer más →</a>
+                </div>
+            </article>
+
+            <article class="blog-card" id="recetas">
+                <div class="blog-card-image">
+                    <div class="blog-placeholder-image">👩‍🍳</div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-header">
+                        <h3>5 Recetas Saludables para la Semana</h3>
+                        <div class="blog-card-meta">📅 22 de Junio, 2025 • 👤 Chef Isabella</div>
+                    </div>
+                    <p>Prepara comidas nutritivas y deliciosas sin complicarte. Recetas fáciles, ingredientes accesibles y sabores que te harán disfrutar de comer saludable.</p>
+                    <div class="blog-card-tags">
+                        <span class="blog-tag">Recetas</span>
+                        <span class="blog-tag">Fácil</span>
+                        <span class="blog-tag">Nutritivo</span>
+                    </div>
+                    <a href="#" class="read-more-btn">Leer más →</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    <div class="blog-placeholder-image">💪</div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-header">
+                        <h3>Rutina HIIT: Quema Grasa en 20 Minutos</h3>
+                        <div class="blog-card-meta">📅 20 de Junio, 2025 • 👤 Trainer Roberto</div>
+                    </div>
+                    <p>Entrenamientos de alta intensidad que maximizan tu tiempo y resultados. Perfectos para personas ocupadas que quieren mantener su condición física.</p>
+                    <div class="blog-card-tags">
+                        <span class="blog-tag">HIIT</span>
+                        <span class="blog-tag">Cardio</span>
+                        <span class="blog-tag">Tiempo</span>
+                    </div>
+                    <a href="#" class="read-more-btn">Leer más →</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    <div class="blog-placeholder-image">🌙</div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-header">
+                        <h3>Mejora tu Sueño con Estos Consejos</h3>
+                        <div class="blog-card-meta">📅 18 de Junio, 2025 • 👤 Dr. Laura Sueño</div>
+                    </div>
+                    <p>Un buen descanso es fundamental para tu salud. Descubre técnicas respaldadas por la ciencia para mejorar la calidad de tu sueño y despertar renovado.</p>
+                    <div class="blog-card-tags">
+                        <span class="blog-tag">Sueño</span>
+                        <span class="blog-tag">Descanso</span>
+                        <span class="blog-tag">Salud</span>
+                    </div>
+                    <a href="#" class="read-more-btn">Leer más →</a>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📬 Suscríbete a Nuestro Newsletter</h2>
+        <div class="newsletter-signup">
+            <p>Recibe los mejores consejos de salud y bienestar directamente en tu email</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Tu email aquí..." required>
+                <button type="submit" class="btn-submit">Suscribirme</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="page-section">
+        <h2>📝 Categorías del Blog</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🏋️‍♀️</div>
+                <h3>Ejercicio y Fitness</h3>
+                <p>Rutinas, técnicas y consejos para mantenerte activo y en forma</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🥗</div>
+                <h3>Nutrición</h3>
+                <p>Guías alimentarias, recetas saludables y consejos nutricionales</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🧘‍♀️</div>
+                <h3>Bienestar Mental</h3>
+                <p>Técnicas de relajación, manejo del estrés y salud emocional</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💤</div>
+                <h3>Descanso y Recuperación</h3>
+                <p>Optimiza tu sueño y recuperación para mejor rendimiento</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

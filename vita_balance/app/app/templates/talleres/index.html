@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Talleres - VitaBalance Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="logo">VitaBalance Admin</h1>
+            <nav class="admin-nav">
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard Admin</a>
+                <a href="{{ url_for('planes.index') }}" class="nav-link">Planes</a>
+                <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Dashboard Usuario</a>
+                <a href="{{ url_for('auth.logout') }}" class="nav-link logout">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Gestión de Talleres</h2>
+                <p>Administra y controla todos los talleres del sistema</p>
+            </div>
+            <div class="page-actions">
+                <a href="{{ url_for('talleres.crear') }}" class="btn btn-primary">
+                    <span class="btn-icon">➕</span>
+                    Crear Nuevo Taller
+                </a>
+            </div>
+        </div>
+
+        <div class="content-card">
+            {% if talleres %}
+            <div class="table-container">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Días</th>
+                            <th>Cupos</th>
+                            <th>Objetivo</th>
+                            <th>Nivel</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for taller in talleres %}
+                        <tr>
+                            <td>
+                                <div class="item-name">{{ taller.nombre }}</div>
+                            </td>
+                            <td>
+                                <div class="routine-preview">{{ (taller.descripcion[:40] + '...') if taller.descripcion and taller.descripcion|length > 40 else (taller.descripcion or '-') }}</div>
+                            </td>
+                            <td>
+                                <div class="schedule-info">{{ taller.dias_semana }}</div>
+                            </td>
+                            <td>
+                                <span class="cupos-badge">{{ taller.cupos }} cupos</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-{{ 'success' if taller.objetivo == 'mejorar_salud' else ('warning' if taller.objetivo == 'perder_peso' else 'info') }}">
+                                    {{ taller.objetivo.replace('_', ' ').title() if taller.objetivo else 'Sin objetivo' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-{{ 'secondary' if taller.nivel_actividad == 'bajo' else ('primary' if taller.nivel_actividad == 'moderado' else 'success') }}">
+                                    {{ taller.nivel_actividad.title() if taller.nivel_actividad else 'Moderado' }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ url_for('talleres.editar', id=taller.id) }}" class="btn-action btn-edit">
+                                        ✏️ Editar
+                                    </a>
+                                    <form action="{{ url_for('talleres.eliminar', id=taller.id) }}" method="post" style="display:inline;">
+                                        <button class="btn-action btn-delete" onclick="return confirm('¿Eliminar taller?')">
+                                            🗑️ Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">🎯</div>
+                <h3>No hay talleres registrados</h3>
+                <p>Comienza creando el primer taller para tus usuarios</p>
+                <a href="{{ url_for('talleres.crear') }}" class="btn btn-primary">Crear Primer Taller</a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+</html>
